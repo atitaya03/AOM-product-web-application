@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aom Product Application</title>
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div th:insert="~{fragments/header :: header}"></div>
+
+<div class="container w-50 p-3">
+    <h1 class="display-6">Chemical Solution Add</h1>
+    <form action="#" th:action="@{/chemicals/add}" method="POST">
+        <div class="mb-3">
+            <label for="inputName">Name</label>
+            <input id="inputName" type="input" class="form-control"
+                   name="name">
+        </div>
+
+        <div class="mb-3">
+            <label for="inputOvenTime">Oven Time</label>
+            <input id="inputOvenTime" type="input" class="form-control"
+                   name="ovenTime">
+        </div>
+        <div class="mb-3">
+            <label for="inputSolidTime">Solid Time</label>
+            <input id="inputSolidTime" type="input" class="form-control"
+                   name="solidTime">
+        </div>
+
+        <div class="mb-3">
+            <label for="inputVolume">Volume</label>
+            <input id="inputVolume" type="input" class="form-control"
+                   name="volume">
+        </div>
+
+        <div class="mb-3">
+            <label for="inputHardness">Hardness</label>
+            <select class="form-control" id="inputHardness" name="hardness">
+                <option th:each="hardness : ${hardnessList}" th:value="${hardness.hardness}" th:text="${hardness.hardness}">
+                </option>
+            </select>
+        </div>
+
+        <button id="submit-button" type="submit" class="btn btn-primary">Add Chemical</button>
+    </form>
+
+
+
+
+</div>
+
+</body>
+
+</html>
