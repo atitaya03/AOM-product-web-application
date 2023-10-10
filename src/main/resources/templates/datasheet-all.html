@@ -13,14 +13,15 @@
 <div th:insert="~{fragments/header :: header}"></div>
 
 <div class="container w-50 p-3">
-    <h1 class="display-6">Chemical Solution</h1>
-    <a class="btn btn-primary" th:href="@{/chemicals/add}">Add</a>
-    <table th:each="chemical : ${chemicals}" class="table table-bordered table-striped table-hover">
-            <td th:text="${chemical.getName()}"></td>
-            <td style="text-align: center">
-                <a class="btn btn-primary"
-                   th:href="@{/}">View</a>
-            </td>
+    <h1 class="display-6">Data Sheet</h1>
+    <a class="btn btn-primary" th:href="@{/datasheets/create}">create</a>
+    <table th:each="datasheet : ${datasheets}" class="table table-bordered table-striped table-hover">
+
+        <td th:text="${datasheet.getName()}"></td>
+        <td style="text-align: center">
+            <a class="btn btn-primary"
+               th:href="@{/}">View</a>
+        </td>
     </table>
 
 

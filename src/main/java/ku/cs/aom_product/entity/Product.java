@@ -2,6 +2,7 @@ package ku.cs.aom_product.entity;
 
 import jakarta.persistence.*;
 import ku.cs.aom_product.common.Status;
+import ku.cs.aom_product.shape.Shape;
 import lombok.Data;
 
 import java.util.List;
@@ -15,9 +16,8 @@ public class Product {
     private UUID id;
 
     private int name;
-    private double height;
-    private int width;
     private int hardness;
+    private String shape;
     private Status status;
 
     @OneToMany(mappedBy = "product")
@@ -25,4 +25,10 @@ public class Product {
 
     @OneToOne
     private Mold mold;
+
+    @ManyToOne
+    private Chemical chemical;
+
+
+
 }

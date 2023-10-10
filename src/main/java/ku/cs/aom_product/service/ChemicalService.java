@@ -30,6 +30,10 @@ public class ChemicalService {
         return chemicalRepository.findAll();
     }
 
+    public List<Chemical> getChemicalsByHardness(int hardness){
+        return chemicalRepository.findChemicalsByHardness_Hardness(hardness);
+    }
+
 
     public void createChemical(ChemicalRequest chemical){
         Chemical record = modelMapper.map(chemical,Chemical.class);
