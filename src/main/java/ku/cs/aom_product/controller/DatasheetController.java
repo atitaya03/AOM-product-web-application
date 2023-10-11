@@ -36,7 +36,7 @@ public class DatasheetController {
     }
     @GetMapping("create")
     public String getDataSheetForm(Model model){
-        List<String> shapeOptions = Arrays.asList("Circle", "Sphere", "Cube");
+        List<String> shapeOptions = Arrays.asList("Cube", "Cylinder", "Rectangular");
         model.addAttribute("shapeOptions",shapeOptions );
         model.addAttribute("hardnessList",hardnessService.getAllHardness());
         model.addAttribute("chemicalList",chemicalService.getAllChemicals());
