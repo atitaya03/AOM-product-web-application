@@ -16,12 +16,21 @@
 <div class="container w-50 p-3">
     <h1 class="display-6">Chemical Solution</h1>
     <a class="btn btn-primary" th:href="@{/chemicals/add}">Add</a>
-    <table th:each="chemical : ${chemicals}" class="table table-bordered table-striped table-hover">
+    <table class="table table-bordered table-striped table-hover">
+        <tr>
+            <th>ชื่อ</th>
+            <th>ปริมาณ</th>
+            <th>ความแข็ง</th>
+            <th>เวลาในการอบ</th>
+            <th>เวลาในการเซตตัว</th>
+        </tr>
+        <tr th:each="chemical : ${chemicals}">
             <td th:text="${chemical.getName()}"></td>
-            <td style="text-align: center">
-                <a class="btn btn-primary"
-                   th:href="@{/}">View</a>
-            </td>
+            <td th:text="${chemical.getVolume()}"></td>
+            <td th:text="${chemical.getHardness().getHardness()}"></td>
+            <td th:text="${chemical.getOvenTime()}"></td>
+            <td th:text="${chemical.getSolidTime()}"></td>
+        </tr>
     </table>
 
 

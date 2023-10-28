@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aom Product Application</title>
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link th:rel="stylesheet" th:href="@{/css/style.css}">
+
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div th:insert="~{fragments/sidebar}"></div>
+
+<div class="container w-50 p-3">
+    <h1 class="display-6">Chemical Solution</h1>
+    <a class="btn btn-primary" th:href="@{/molds/add}">Add</a>
+    <table th:each="mold : ${molds}" class="table table-bordered table-striped table-hover">
+        <td th:text="${mold.getName()}"></td>
+
+    </table>
+
+
+
+</div>
+
+</body>
+
+</html>

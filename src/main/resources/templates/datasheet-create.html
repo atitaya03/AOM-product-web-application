@@ -9,7 +9,9 @@
     <link th:rel="stylesheet" th:href="@{/css/style.css}">
 
     <script th:src="@{/js/bootstrap.min.js}"></script>
+
 </head>
+
 <body>
 <div th:insert="~{fragments/sidebar}"></div>
 
@@ -31,23 +33,23 @@
             </select>
         </div>
 
-       <div class="mb-3">
-         <label for="inputHardness">Hardness</label>
-          <select class="form-control" id="inputHardness" name="hardness" >
-               <option th:each="hardness : ${hardnessList}" th:value="${hardness.hardness}" th:text="${hardness.hardness}">
-               </option>
-
-          </select>
-     </div>
-
-
         <div class="mb-3">
-            <label for="inputChemical">Chemical</label>
-            <select class="form-control" id="inputChemical" name="chemical" th:href="@{/datasheets/findByHardness/{hardness}(hardness=${selectedValue})}">
-                <option th:each="chemical : ${chemicalsForHardness}" th:value="${hardness.hardness}" th:text="${hardness.hardness}">
+            <label for="hardness">Hardness</label>
+            <select class="form-control" id="hardness" name="hardness">
+            <option th:each="hardness : ${hardnessList}" th:value="${hardness.hardness}" th:text="${hardness.hardness}">
                 </option>
             </select>
         </div>
+
+        <div class="mb-3">
+            <label for="chemical">Chemical</label>
+            <select class="form-control" id="chemical" name="chemical">
+                <option th:each="chemical : ${chemicals}" th:value="${chemical.name}" th:text="${chemical.name}">
+                </option>
+            </select>
+        </div>
+
+
 
         <button id="submit-button" type="submit" class="btn btn-primary">Add Chemical</button>
     </form>
@@ -57,24 +59,33 @@
 
 </div>
 
-</body>
+<!--<script>-->
+<!--    function filterChemicalsByHardness() {-->
+<!--        console.log('Function called');-->
+<!--        // Get the selected hardness value.-->
+<!--        const selectedHardness = document.getElementById('hardness').value;-->
+<!--        const chemicalList = [[${chemicalList}]];-->
+<!--        if (chemicalList !== null) {-->
 
+
+<!--            // Filter the `chemicalList` to only include chemicals that have the same hardness as the selected hardness.-->
+<!--            const filteredChemicalList = chemicalList.filter(chemical => chemical.hardness === selectedHardness);-->
+
+<!--            // Update the `chemical` select field with the filtered `chemicalList`.-->
+<!--            const chemicalSelect = document.getElementById('chemical');-->
+<!--            chemicalSelect.innerHTML = '';-->
+<!--            filteredChemicalList.forEach(chemical => {-->
+<!--                const option = document.createElement('option');-->
+<!--                option.value = chemical.name;-->
+<!--                option.text = chemical.name;-->
+<!--                chemicalSelect.appendChild(option);-->
+<!--            });}}-->
+
+<!--</script>-->
+</body>
 </html>
 
-<script>
-    $(document).ready(function () {
-        $('#inputHardness').change(function () {
-            var selectedHardness = $(this).val();
 
-            // Make an AJAX request to your controller
-            $.get('/findByHardness', { hardness: selectedHardness }, function (data) {
-                // Handle the response data here, e.g., populate the chemical dropdown
-                var selectChemical = $('#inputChemical');
-                selectChemical.empty(); // Clear previous options
-                $.each(data, function (index, chemical) {
-                    selectChemical.append($('<option>').attr('value', chemical.id).text(chemical.name));
-                });
-            });
-        });
-    });
-</script>
+
+
+
