@@ -8,8 +8,11 @@ import java.util.UUID;
 
 @Data
 public class DatasheetRequest {
-    private int name;
+    private String name;
     private int hardness;
+    private double volume;
     private String shape;
+
     private UUID moldId;
+    private String chemical;
 }

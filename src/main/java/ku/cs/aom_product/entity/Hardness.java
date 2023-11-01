@@ -1,6 +1,7 @@
 package ku.cs.aom_product.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -16,6 +17,8 @@ public class Hardness {
     @GeneratedValue
     private int hardness;
 
+
+    @JsonManagedReference
     @OneToMany(mappedBy = "hardness")
     private List<Chemical> chemicals;
 }

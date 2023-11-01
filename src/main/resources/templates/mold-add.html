@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aom Product Application</title>
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link th:rel="stylesheet" th:href="@{/css/style.css}">
+
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+
+</head>
+
+<body>
+<div th:insert="~{fragments/sidebar}"></div>
+
+<div class="container w-50 p-3">
+    <h1 class="display-6">Mold Add</h1>
+    <form action="#" th:action="@{/molds/add}" method="POST">
+        <div class="mb-3">
+            <label for="inputName"> ชื่อ </label>
+            <input id="inputName" type="input" class="form-control"
+                   name="name">
+        </div>
+
+        <div class="mb-3">
+            <label for="inputQuantity"> จำนวน </label>
+            <input id="inputQuantity" type="input" class="form-control"
+                   name="quantity">
+        </div>
+
+
+
+
+
+        <button id="submit-button" type="submit" class="btn btn-primary">Add</button>
+    </form>
+
+
+
+
+</div>
+</body>
+</html>
+
+
+
+
+

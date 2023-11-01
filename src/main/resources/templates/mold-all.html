@@ -16,9 +16,17 @@
 <div class="container w-50 p-3">
     <h1 class="display-6">Chemical Solution</h1>
     <a class="btn btn-primary" th:href="@{/molds/add}">Add</a>
-    <table th:each="mold : ${molds}" class="table table-bordered table-striped table-hover">
-        <td th:text="${mold.getName()}"></td>
+    <table class="table table-bordered table-striped table-hover">
+        <tr>
+            <th>ชื่อ</th>
+            <th>จำนวน</th>
 
+        </tr>
+        <tr th:each="mold : ${molds}">
+            <td th:text="${mold.getName()}"></td>
+            <td th:text="${mold.getQuantity()}"></td>
+
+        </tr>
     </table>
 
 

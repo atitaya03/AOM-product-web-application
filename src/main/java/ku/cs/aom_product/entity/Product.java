@@ -15,15 +15,16 @@ public class Product {
     @GeneratedValue
     private UUID id;
 
-    private int name;
+    private String name;
     private int hardness;
+    private double volume;
     private String shape;
     private Status status;
 
     @OneToMany(mappedBy = "product")
     private List<ProcessRecord> processRecord;
 
-    @OneToOne
+    @ManyToOne
     private Mold mold;
 
     @ManyToOne

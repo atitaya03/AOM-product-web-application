@@ -31,18 +31,10 @@ public class DatasheetController {
         model.addAttribute("datasheets",datasheetService.getAllProduct());
         return "datasheet-all";
     }
-//    @GetMapping("findByHardness/{hardness}")
-//    public ResponseEntity<List<Chemical>> findByHardness(@PathVariable int hardness) {
-//        List<Chemical> chemicals = chemicalService.getChemicalsByHardness(hardness);
-//        if (chemicals.isEmpty()) {
-//            return ResponseEntity.notFound().build(); // Return a 404 Not Found response
-//        }
-//        return ResponseEntity.ok(chemicals); // Return a 200 OK response with the list of chemicals
-//    }
 
     @GetMapping("create")
     public String getDataSheetForm(Model model){
-        List<String> shapeOptions = Arrays.asList("Cube", "Cylinder", "Rectangular");
+        List<String> shapeOptions = Arrays.asList("สี่เหลี่ยม", "แท่งตัน", "แท่งมีรู");
         model.addAttribute("shapeOptions",shapeOptions );
         model.addAttribute("hardnessList",hardnessService.getAllHardness());
         model.addAttribute("chemicals",chemicalService.getAllChemicals());

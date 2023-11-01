@@ -1,6 +1,7 @@
 package ku.cs.aom_product.controller;
 
 
+import ku.cs.aom_product.entity.Chemical;
 import ku.cs.aom_product.entity.Hardness;
 import ku.cs.aom_product.model.ChemicalRequest;
 import ku.cs.aom_product.service.ChemicalService;
@@ -9,10 +10,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/chemicals")

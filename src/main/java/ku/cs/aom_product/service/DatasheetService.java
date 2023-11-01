@@ -1,9 +1,11 @@
 package ku.cs.aom_product.service;
 
 
+import ku.cs.aom_product.entity.Chemical;
 import ku.cs.aom_product.entity.Mold;
 import ku.cs.aom_product.entity.Product;
 import ku.cs.aom_product.model.DatasheetRequest;
+import ku.cs.aom_product.repository.ChemicalRepository;
 import ku.cs.aom_product.repository.MoldRepository;
 import ku.cs.aom_product.repository.ProductRepository;
 import org.modelmapper.ModelMapper;
@@ -18,6 +20,8 @@ public class DatasheetService {
     private ProductRepository repository;
 
     @Autowired
+    private ChemicalRepository chemicalRepository;
+    @Autowired
     private MoldRepository moldRepository;
 
     @Autowired
@@ -29,9 +33,11 @@ public class DatasheetService {
 
     public void createDataSheet(DatasheetRequest request){
         Product record = modelMapper.map(request,Product.class);
-        Mold mold = moldRepository.findById(request.getMoldId()).get();
-        record.setMold(mold);
-        record.setShape(request.getShape());
+        Chemical chemical = chemicalRepository.findByName(request.getChemical());
+        System.out.println(request);
+        //Mold mold = moldRepository.findById(request.getMoldId()).get();
+       // record.setMold(mold);
+        record.setChemical(chemical);
         repository.save(record);
 
     }

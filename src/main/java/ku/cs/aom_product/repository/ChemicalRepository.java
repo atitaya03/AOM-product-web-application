@@ -10,5 +10,5 @@ import java.util.UUID;
 @Repository
 public interface ChemicalRepository extends JpaRepository<Chemical, UUID> {
   List<Chemical> findChemicalsByHardness_Hardness(int hardness);
-
+  Chemical findByName(String name);
 }

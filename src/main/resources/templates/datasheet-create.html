@@ -9,6 +9,7 @@
     <link th:rel="stylesheet" th:href="@{/css/style.css}">
 
     <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
 
@@ -16,72 +17,219 @@
 <div th:insert="~{fragments/sidebar}"></div>
 
 <div class="container w-50 p-3">
-    <h1 class="display-6">Datasheet Create</h1>
+    <h1 class="display-6">สร้าง Datasheet </h1>
     <form action="#" th:action="@{/datasheets/create}" method="POST">
         <div class="mb-3">
-            <label for="inputName">Name</label>
+            <label for="inputName">ชื่อ</label>
             <input id="inputName" type="input" class="form-control"
                    name="name">
         </div>
 
         <div class="mb-3">
-            <label for="inputShape">Shape</label>
+            <label for="inputShape">รูปทรง</label>
             <select class="form-control" id="inputShape" name="shape" >
-                <option th:each="shape : ${shapeOptions}" th:value="${shape}" th:text="${shape}">
-                </option>
+                <option value="" style="display: none">เลือกรูปทรง</option>
+                <option value="rectangle">สี่เหลี่ยม</option>
+                <option value="cylindrical">แท่งตัน</option>
+                <option value="hallow-cylindrical">แท่งมีรู</option>
+                <option value="else">อื่นๆ</option>
 
             </select>
         </div>
 
+        <div class="mb-3" id="rectangleFields" style="display: none" >
+            <label for="width" >กว้าง:</label>
+            <input type="number" id="width" class="form-control"  style="border-color: green";>
+
+            <label for="long">ยาว:</label>
+            <input type="number" id="long" class="form-control"  style="border-color: green";>
+
+            <label for="height">สูง:</label>
+            <input type="number" id="height" class="form-control"  style="border-color: green";>
+
+
+        </div>
+
+
+
+        <div class="mb-3" id="cylindricalFields" style="display: none">
+            <label for="diameter">เส้นผ่านศูนย์กลาง:</label>
+            <input type="number" id="diameter" class="form-control"  style="border-color: green";>
+
+
+        </div>
+
+        <div class="mb-3" id="hallow-cylindricalFields" style="display: none">
+            <label for="diameter">เส้นผ่านศูนย์กลางรอบนอก:</label>
+            <input type="number" id="outside-diameter" class="form-control"  style="border-color: green";>
+            <label for="diameter">เส้นผ่านศูนย์กลางรอบใน:</label>
+            <input type="number" id="inside-diameter" class="form-control"  style="border-color: green";>
+        </div>
+
+        <button id="calculate-button"  class="btn btn-success" style="display: none">คำนวณปริมาตร</button>
+
         <div class="mb-3">
-            <label for="hardness">Hardness</label>
+            <label for="volume">ปริมาตร</label>
+            <input id="volume" class="form-control" name="volume">
+        </div>
+
+
+        <div class="mb-3">
+            <label for="hardness">ความแข็ง</label>
             <select class="form-control" id="hardness" name="hardness">
-            <option th:each="hardness : ${hardnessList}" th:value="${hardness.hardness}" th:text="${hardness.hardness}">
+            <option value=""  hidden>
+                เลือก ความแข็ง
                 </option>
             </select>
         </div>
 
         <div class="mb-3">
-            <label for="chemical">Chemical</label>
+            <label for="chemical">น้ำยา</label>
             <select class="form-control" id="chemical" name="chemical">
-                <option th:each="chemical : ${chemicals}" th:value="${chemical.name}" th:text="${chemical.name}">
+                <option value=""  hidden>
+                    เลือกน้ำยา
+                </option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="moldId">โมล์ด</label>
+            <select class="form-control" id="moldId" name="moldId">
+                <option value=""  hidden>
+                    เลือกโมล์ด
                 </option>
             </select>
         </div>
 
 
 
-        <button id="submit-button" type="submit" class="btn btn-primary">Add Chemical</button>
+        <button id="submit-button" type="submit" class="btn btn-primary">สร้าง</button>
     </form>
 
 
 
 
 </div>
+<script>
+        const hardnessSelect = document.getElementById('hardness');
+        const chemicalSelect = document.getElementById('chemical');
+        const moldSelect = document.getElementById('moldId');
 
-<!--<script>-->
-<!--    function filterChemicalsByHardness() {-->
-<!--        console.log('Function called');-->
-<!--        // Get the selected hardness value.-->
-<!--        const selectedHardness = document.getElementById('hardness').value;-->
-<!--        const chemicalList = [[${chemicalList}]];-->
-<!--        if (chemicalList !== null) {-->
+        const getChemical = async (hardness) =>  {
+            const chemicals = await fetch(`http://localhost:8095/api/chemicals/${hardness}`) ;
+            const data = await  chemicals.json();
+            return data;
+        }
+        const getMold = async (hardness) =>  {
+            const molds = await fetch("http://localhost:8095/api/mold") ;
+            const data = await  molds.json();
+            return data;
+        }
 
 
-<!--            // Filter the `chemicalList` to only include chemicals that have the same hardness as the selected hardness.-->
-<!--            const filteredChemicalList = chemicalList.filter(chemical => chemical.hardness === selectedHardness);-->
+        const  getHardness = async ()=>{
+            const hardness = await fetch("http://localhost:8095/api/hardness")
+            const data = await hardness.json();
+            return data;
+        }
+        const createMoldSelect = async () => {
+            const  molds = await getMold();
+            molds.forEach((mold)=>{
+                const option = document.createElement('option');
+                option.value = mold.id;
+                option.text = mold.name;
 
-<!--            // Update the `chemical` select field with the filtered `chemicalList`.-->
-<!--            const chemicalSelect = document.getElementById('chemical');-->
-<!--            chemicalSelect.innerHTML = '';-->
-<!--            filteredChemicalList.forEach(chemical => {-->
-<!--                const option = document.createElement('option');-->
-<!--                option.value = chemical.name;-->
-<!--                option.text = chemical.name;-->
-<!--                chemicalSelect.appendChild(option);-->
-<!--            });}}-->
+                moldSelect.appendChild(option);
+            })
+        }
+        const createHardnessSelect = async () => {
+            const hardness = await getHardness();
 
-<!--</script>-->
+            hardness.forEach((hardness) => {
+                const option = document.createElement('option');
+                option.value = parseInt(hardness.hardness);
+                option.text = hardness.hardness;
+
+                hardnessSelect.appendChild(option);
+            });
+        }
+
+        hardnessSelect.addEventListener('change',async (e) => {
+            const hardness = e.target.value;
+            console.log(hardness);
+            const chemicals = await getChemical(hardness);
+
+            chemicals.forEach((chemical)=>{
+                const option = document.createElement('option');
+                option.value = chemical.name;
+                option.text = chemical.name;
+
+                chemicalSelect.appendChild(option)
+            })
+        })
+        moldSelect.addEventListener('change',async (e) => {
+            const mold = e.target.value;
+            console.log(mold);
+        })
+
+
+        createHardnessSelect();
+        createMoldSelect();
+        $(document).ready(function() {
+            $("#inputShape").on("change", function() {
+                const selectedShape = $(this).val();
+                console.log(selectedShape);
+                if(selectedShape !== "" && selectedShape !== "else" ){
+                    $("#calculate-button").show();
+                }else if (selectedShape === "else") {
+                    $("#calculate-button").hide();
+
+                }
+
+                 if (selectedShape === "rectangle") {
+                     $("#rectangleFields").show();
+                     $("#cylindricalFields").hide();
+                     $("#hallow-cylindricalFields").hide();
+                 } else if (selectedShape === "cylindrical") {
+                     $("#rectangleFields").hide();
+                    $("#cylindricalFields").show();
+                     $("#hallow-cylindricalFields").hide();
+                 } else if (selectedShape === "hallow-cylindrical") {
+                     $("#rectangleFields").hide();
+                     $("#cylindricalFields").hide();
+                     $("#hallow-cylindricalFields").show();
+                } else {
+                     $("#rectangleFields").hide();
+                     $("#cylindricalFields").hide();
+                     $("#hallow-cylindricalFields").hide();
+                 }
+            });
+
+            $("#calculate-button").on("click", function(event) {
+                event.preventDefault();
+                const selectedShape = $("#inputShape").val();
+                let result = 0;
+
+                if (selectedShape === "rectangle") {
+                    const width = parseFloat($("#width").val());
+                    const long = parseFloat($("#long").val());
+                    const height = parseFloat($("#height").val());
+                    result = width * height * long;
+                } else if (selectedShape === "cylindrical") {
+                    const diameter = parseFloat($("#diameter").val());
+                    result = Math.PI * diameter * diameter * 2 / 4;
+                }
+                else if (selectedShape === "hallow-cylindrical") {
+                    const outsideDiameter = parseFloat($("#outside-diameter").val());
+                    const insideDiameter = parseFloat($("#inside-diameter").val());
+                    result = Math.PI * (Math.pow(outsideDiameter,2)-Math.pow(insideDiameter,2)) * 2 / 4;
+                }
+
+                document.getElementById("volume").value = result;
+            });
+        });
+
+</script>
 </body>
 </html>
 
