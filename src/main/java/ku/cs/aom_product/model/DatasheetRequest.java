@@ -15,6 +15,7 @@ public class DatasheetRequest {
     private double chemicalVolume;
     private double mocaVolume;
     private String shape;
+    private String status;
 
     private UUID moldId;
     private String chemical;

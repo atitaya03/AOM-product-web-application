@@ -115,8 +115,9 @@
             <label for="moca-volume">ปริมาณmoca </label>
             <input type="number" id="moca-volume" class="form-control"  name="mocaVolume" style="border-color: green";>
         </div>
-
-        <button id="submit-button" type="submit" class="btn btn-primary">สร้าง</button>
+        <input type="hidden" name="action" id="action" value="">
+        <button id="submit1-button" type="submit" class="btn btn-primary" value="submit1" style="display: none">สร้าง</button>
+        <button id="submit2-button" type="submit" class="btn btn-primary" value="submit2" style="display: none">สร้างรอน้ำยา</button>
     </form>
 
 
@@ -179,7 +180,7 @@
             const hardness = e.target.value;
 
             const chemicals = await getChemical(hardness)
-            chemicalSelect;
+            chemicalSelect.innerHTML = '<option value="" hidden> เลือกน้ำยา </option>';
 
             chemicals.forEach((chemical)=>{
                 const option = document.createElement('option');
@@ -276,12 +277,16 @@
 
         });
 
-        document.getElementById('calculate-chem-button').addEventListener('click', function (event) {
+        document.getElementById('calculate-chem-button').addEventListener('click', async function (event) {
             event.preventDefault();
+            const mocaVolRemain = await getVolMoca();
+
+            const quantity = (document.getElementById("inputQuantity")).value;
 
 
             const selectedChemicalOption = document.getElementById('chemical').options[document.getElementById('chemical').selectedIndex];
             const chemical = JSON.parse(selectedChemicalOption.dataset.chemical);
+            const chemicalVolRemain = chemical.volume;
 
 
 
@@ -289,7 +294,7 @@
 
 
             let mocaVolume = 0;
-            let chemicalVolume =0;
+            let chemicalVolume = 0;
 
             mocaVolume = Math.ceil(volume * chemical.mocaRatio / (100+chemical.mocaRatio)/10) * 10 ;
             chemicalVolume = Math.ceil((volume - mocaVolume)/10) *10;
@@ -299,11 +304,34 @@
             document.getElementById("moca-volume").value = mocaVolume;
             $("#chemical-solution").show();
 
+            console.log("need moca", mocaVolume * quantity );
+            console.log("moca left", mocaVolRemain );
+
+            console.log("need chem" , chemicalVolume * quantity );
+            console.log( "chem left" , chemicalVolRemain );
+
+            if( (mocaVolume * quantity) <= mocaVolRemain && (chemicalVolume * quantity) <= chemicalVolRemain){
+                $("#submit1-button").show();
+                $("#submit2-button").hide();
+                console.log("enough");
+            }else{
+                $("#submit1-button").hide();
+                $("#submit2-button").show();
+                console.log("need");
+            }
 
 
 
 
-           // console.log('Calculation Result:', volume, mocaVolume, chemicalVolume);
+
+
+        });
+        $("#submit1-button").on("click", function() {
+            $("#action").val("submit1");
+        });
+
+        $("#submit2-button").on("click", function() {
+            $("#action").val("submit2");
         });
 
 

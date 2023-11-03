@@ -1,5 +1,6 @@
 package ku.cs.aom_product.controller;
 
+import ku.cs.aom_product.common.Status;
 import ku.cs.aom_product.entity.Chemical;
 import ku.cs.aom_product.model.DatasheetRequest;
 import ku.cs.aom_product.service.ChemicalService;
@@ -44,7 +45,13 @@ public class DatasheetController {
 
 
     @PostMapping("create")
-    public String createDataSheet(@ModelAttribute DatasheetRequest request, Model model){
+    public String createDataSheet(@RequestParam("action") String action,@ModelAttribute DatasheetRequest request, Model model){
+        if ("submit1".equals(action)) {
+           request.setStatus(String.valueOf(Status.COMPLETE));
+        } else if ("submit2".equals(action)) {
+            request.setStatus(String.valueOf(Status.WAITING));
+        }
+
         datasheetService.createDataSheet(request);
         return "redirect:/datasheets";
     }
