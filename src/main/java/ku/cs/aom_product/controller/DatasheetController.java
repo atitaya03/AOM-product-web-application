@@ -2,6 +2,7 @@ package ku.cs.aom_product.controller;
 
 import ku.cs.aom_product.common.Status;
 import ku.cs.aom_product.entity.Chemical;
+import ku.cs.aom_product.entity.Product;
 import ku.cs.aom_product.model.DatasheetRequest;
 import ku.cs.aom_product.service.ChemicalService;
 import ku.cs.aom_product.service.DatasheetService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/datasheets")
@@ -43,7 +45,6 @@ public class DatasheetController {
     }
 
 
-
     @PostMapping("create")
     public String createDataSheet(@RequestParam("action") String action,@ModelAttribute DatasheetRequest request, Model model){
         if ("submit1".equals(action)) {
@@ -54,6 +55,13 @@ public class DatasheetController {
 
         datasheetService.createDataSheet(request);
         return "redirect:/datasheets";
+    }
+
+    @GetMapping("/{id}")
+    public String getOneDatasheet(@PathVariable UUID id, Model model){
+        Product product = datasheetService.getOneById(id);
+        model.addAttribute("product",product);
+        return "datasheet-detail";
     }
 
 }

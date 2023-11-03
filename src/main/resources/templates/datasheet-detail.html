@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link th:rel="stylesheet" th:href="@{/css/style.css}">
+
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+
+</head>
+<body>
+<div th:insert="~{fragments/sidebar}"></div>
+<div class="container w-50 p-3">
+    <h1 class="display-6">Datasheet Detail</h1>
+    <form action="#" th:object="${datasheet}">
+        <div class="mb-3">
+            <label for="inputName">Name</label>
+            <input disabled th:value="${product.name}" name="name" id="inputName" type="text" class="form-control">
+            <label for="inputQuantity">Quantity</label>
+            <input disabled th:value="${product.quantity}" name="name" id="inputQuantity" type="text" class="form-control">
+        </div>
+    </form>
+</div>
+</body>
+</html>

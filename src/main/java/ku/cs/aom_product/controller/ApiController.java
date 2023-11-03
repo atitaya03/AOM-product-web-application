@@ -3,12 +3,10 @@ import ku.cs.aom_product.entity.Chemical;
 import ku.cs.aom_product.entity.Hardness;
 import ku.cs.aom_product.entity.Mold;
 
+import ku.cs.aom_product.model.MocaRequest;
 import ku.cs.aom_product.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -50,5 +48,10 @@ public class ApiController {
     public double getVolumeMoca() {
         Double volume =  mocaService.getVolume();
         return  volume;
+    }
+
+    @PutMapping("/moca/use")
+    public void useMoca(@ModelAttribute MocaRequest requestBody) {
+        mocaService.use(requestBody.getVolume());
     }
 }

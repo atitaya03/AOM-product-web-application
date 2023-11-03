@@ -14,21 +14,56 @@
 <div th:insert="~{fragments/sidebar}"></div>
 
 <div class="container w-50 p-3">
-    <h1 class="display-6">ดาต้าชีท</h1>
+    <h1 class="display-6">Datasheet</h1>
     <a class="btn btn-primary" th:href="@{/datasheets/create}">สร้าง</a>
-    <table th:each="datasheet : ${datasheets}" class="table table-bordered table-striped table-hover">
 
-        <td th:text="${datasheet.getName()}"></td>
-        <td style="text-align: center">
-            <a class="btn btn-primary"
-               th:href="@{/}">View</a>
-        </td>
+    <div class="mb-3">
+        <button class="btn btn-primary" id="filterButton">Filter by Status</button>
+        <div class="select-dropdown">
+            <select id="statusFilter" class="select-menu">
+                <option value="" >All</option>
+                <option value="COMPLETE">Complete</option>
+                <option value="WAITING" >Waiting</option>
+                <option value="COMPLETE_PRODUCTION" >Complete Production</option>
+                <option value="ON_PRODUCTION">On Production</option>
+            </select>
+        </div>
+
+    </div>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th style="text-align: center" >Action</th>
+            <th style="text-align: center">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="datasheet : ${datasheets}">
+            <td th:text="${datasheet.getName()}"></td>
+            <td style="text-align: center">
+                <a class="btn btn-primary" th:href="@{/datasheets/{id}(id=${datasheet.getId()})}">View</a>
+            </td>
+            <td style="text-align: center" class="status" th:text="${datasheet.getStatus()}"></td>
+        </tr>
+
+        </tbody>
     </table>
-
-
-
 </div>
-
 </body>
-
 </html>
+<script>
+    document.getElementById("filterButton").addEventListener("click", function () {
+        var selectedStatus = document.getElementById("statusFilter").value;
+        var rows = document.querySelectorAll("table tbody tr");
+
+        rows.forEach(function (row) {
+            var statusCell = row.querySelector("td.status");
+            if (selectedStatus === "" || statusCell.textContent === selectedStatus) {
+                row.style.display = "table-row";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    });
+</script>

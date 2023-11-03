@@ -281,6 +281,7 @@
             event.preventDefault();
             const mocaVolRemain = await getVolMoca();
 
+
             const quantity = (document.getElementById("inputQuantity")).value;
 
 
@@ -328,6 +329,25 @@
         });
         $("#submit1-button").on("click", function() {
             $("#action").val("submit1");
+           const apiUrl = 'http://localhost:8095/api/moca/use';
+
+            const mocaVolume = document.getElementById('moca-volume');
+            const mocaData = {
+              volume: 10,
+            };
+
+
+            const jsonMocaData = JSON.stringify(mocaData);
+
+            const requestOptions = {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: jsonMocaData,
+            };
+
+            fetch(apiUrl, requestOptions)
         });
 
         $("#submit2-button").on("click", function() {

@@ -26,4 +26,12 @@ public class MocaService {
         data.setVolume(volume);
         repository.save(data);
     }
+
+    public void use(Double requestMoca) {
+        Moca data = repository.findAll().get(0);
+        double volume = data.getVolume();
+        volume = volume - requestMoca;
+        data.setVolume(volume);
+        repository.save(data);
+    }
 }

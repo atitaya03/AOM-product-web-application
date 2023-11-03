@@ -49,4 +49,12 @@ public class ChemicalService {
         chemicalRepository.save(record);
 
     }
+
+    public void useChemical(UUID id, UpdateChemicalRequest request){
+        Chemical record = chemicalRepository.findById(id).get();
+        double newVolume = record.getVolume() - record.getVolume();
+        record.setVolume(newVolume);
+        chemicalRepository.save(record);
+
+    }
 }
