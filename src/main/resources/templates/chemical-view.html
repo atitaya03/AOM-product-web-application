@@ -20,6 +20,7 @@
         <tr>
             <th>ชื่อ</th>
             <th>ปริมาณ</th>
+            <th>สัดส่วนmoca</th>
             <th>ความแข็ง</th>
             <th>เวลาในการอบ</th>
             <th>เวลาในการเซตตัว</th>
@@ -27,6 +28,7 @@
         <tr th:each="chemical : ${chemicals}">
             <td th:text="${chemical.getName()}"></td>
             <td th:text="${chemical.getVolume()}"></td>
+            <td th:text="${chemical.getMocaRatio()}"></td>
             <td th:text="${chemical.getHardness().getHardness()}"></td>
             <td th:text="${chemical.getOvenTime()}"></td>
             <td th:text="${chemical.getSolidTime()}"></td>

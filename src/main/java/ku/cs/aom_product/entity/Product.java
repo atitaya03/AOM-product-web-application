@@ -2,7 +2,7 @@ package ku.cs.aom_product.entity;
 
 import jakarta.persistence.*;
 import ku.cs.aom_product.common.Status;
-import ku.cs.aom_product.shape.Shape;
+
 import lombok.Data;
 
 import java.util.List;
@@ -17,7 +17,10 @@ public class Product {
 
     private String name;
     private int hardness;
+    private int quantity;
     private double volume;
+    private double chemicalVolume;
+    private double mocaVolume;
     private String shape;
     private Status status;
 

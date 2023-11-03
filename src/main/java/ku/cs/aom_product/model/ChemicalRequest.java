@@ -9,5 +9,6 @@ public class ChemicalRequest {
     private double ovenTime;
     private double solidTime;
     private double volume;
+    private double mocaRatio;
     private int hardness;
 }

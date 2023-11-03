@@ -73,6 +73,21 @@
             <input id="volume" class="form-control" name="volume">
         </div>
 
+        <div class="mb-3">
+            <label for="inputQuantity">จำนวน</label>
+            <input id="inputQuantity" type="number" class="form-control"
+                   name="quantity">
+        </div>
+
+        <div class="mb-3">
+            <label for="moldId">โมล์ด</label>
+            <select class="form-control" id="moldId" name="moldId">
+                <option value=""  hidden>
+                    เลือกโมล์ด
+                </option>
+            </select>
+        </div>
+
 
         <div class="mb-3">
             <label for="hardness">ความแข็ง</label>
@@ -92,16 +107,14 @@
             </select>
         </div>
 
-        <div class="mb-3">
-            <label for="moldId">โมล์ด</label>
-            <select class="form-control" id="moldId" name="moldId">
-                <option value=""  hidden>
-                    เลือกโมล์ด
-                </option>
-            </select>
+        <button id="calculate-chem-button"  class="btn btn-success" >คำนวณน้ำยา</button>
+
+        <div class="mb-3" id="chemical-solution" style="display: none">
+            <label for="chemical-volume">ปริมาณน้ำยา</label>
+            <input type="number" id="chemical-volume" class="form-control" name="chemicalVolume" style="border-color: green";>
+            <label for="moca-volume">ปริมาณmoca </label>
+            <input type="number" id="moca-volume" class="form-control"  name="mocaVolume" style="border-color: green";>
         </div>
-
-
 
         <button id="submit-button" type="submit" class="btn btn-primary">สร้าง</button>
     </form>
@@ -120,11 +133,17 @@
             const data = await  chemicals.json();
             return data;
         }
-        const getMold = async (hardness) =>  {
+        const getVolMoca = async () =>  {
+            const moca = await fetch(`http://localhost:8095/api/moca`) ;
+            const data = await  moca.json();
+            return data;
+        }
+        const getMold = async () =>  {
             const molds = await fetch("http://localhost:8095/api/mold") ;
             const data = await  molds.json();
             return data;
         }
+
 
 
         const  getHardness = async ()=>{
@@ -145,6 +164,8 @@
         const createHardnessSelect = async () => {
             const hardness = await getHardness();
 
+
+
             hardness.forEach((hardness) => {
                 const option = document.createElement('option');
                 option.value = parseInt(hardness.hardness);
@@ -156,13 +177,16 @@
 
         hardnessSelect.addEventListener('change',async (e) => {
             const hardness = e.target.value;
-            console.log(hardness);
-            const chemicals = await getChemical(hardness);
+
+            const chemicals = await getChemical(hardness)
+            chemicalSelect;
 
             chemicals.forEach((chemical)=>{
                 const option = document.createElement('option');
-                option.value = chemical.name;
+                option.value = chemical;
                 option.text = chemical.name;
+                option.dataset.chemical = JSON.stringify(chemical);
+
 
                 chemicalSelect.appendChild(option)
             })
@@ -170,6 +194,16 @@
         moldSelect.addEventListener('change',async (e) => {
             const mold = e.target.value;
             console.log(mold);
+        })
+
+        chemicalSelect.addEventListener('change', async (e) => {
+            const selectedOption = e.target.options[e.target.selectedIndex];
+            const chemicalData = selectedOption.dataset.chemical;
+
+            if (chemicalData) {
+                const chemical = JSON.parse(chemicalData);
+                console.log(chemical.volume);
+            }
         })
 
 
@@ -225,9 +259,53 @@
                     result = Math.PI * (Math.pow(outsideDiameter,2)-Math.pow(insideDiameter,2)) * 2 / 4;
                 }
 
-                document.getElementById("volume").value = result;
+                if(result < 500){
+                    result = result*1.3;
+                }else if ( 500<result && result <= 1500){
+                    result = result*1.25;
+                }else if ( 1500<result && result<= 7000){
+                    result = result*1.16;
+                }else if ( result > 7000){
+                    result = result*1.1;
+                }
+
+                document.getElementById("volume").value = Math.ceil(result / 10) * 10;
             });
+
+
+
         });
+
+        document.getElementById('calculate-chem-button').addEventListener('click', function (event) {
+            event.preventDefault();
+
+
+            const selectedChemicalOption = document.getElementById('chemical').options[document.getElementById('chemical').selectedIndex];
+            const chemical = JSON.parse(selectedChemicalOption.dataset.chemical);
+
+
+
+            const volume = parseFloat(document.getElementById('volume').value);
+
+
+            let mocaVolume = 0;
+            let chemicalVolume =0;
+
+            mocaVolume = Math.ceil(volume * chemical.mocaRatio / (100+chemical.mocaRatio)/10) * 10 ;
+            chemicalVolume = Math.ceil((volume - mocaVolume)/10) *10;
+
+
+            document.getElementById("chemical-volume").value = chemicalVolume;
+            document.getElementById("moca-volume").value = mocaVolume;
+            $("#chemical-solution").show();
+
+
+
+
+
+           // console.log('Calculation Result:', volume, mocaVolume, chemicalVolume);
+        });
+
 
 </script>
 </body>

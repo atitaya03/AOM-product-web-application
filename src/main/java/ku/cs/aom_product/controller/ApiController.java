@@ -2,10 +2,8 @@ package ku.cs.aom_product.controller;
 import ku.cs.aom_product.entity.Chemical;
 import ku.cs.aom_product.entity.Hardness;
 import ku.cs.aom_product.entity.Mold;
-import ku.cs.aom_product.service.ChemicalService;
-import ku.cs.aom_product.service.HardnessService;
-import ku.cs.aom_product.service.MoldService;
-import ku.cs.aom_product.service.SignupService;
+
+import ku.cs.aom_product.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +25,9 @@ public class ApiController {
     @Autowired
     private MoldService moldService;
 
+    @Autowired
+    private MocaService mocaService;
+
     @GetMapping("/chemicals/{hardness}")
     public List<Chemical> getChemical(@PathVariable int hardness) {
         List<Chemical> chemicalList =  chemicalService.getChemicalsByHardness(hardness);
@@ -43,5 +44,11 @@ public class ApiController {
     public List<Mold> getAllMold() {
         List<Mold> moldList =  moldService.getAllMolds();
         return  moldList;
+    }
+
+    @GetMapping("/moca")
+    public double getVolumeMoca() {
+        Double volume =  mocaService.getVolume();
+        return  volume;
     }
 }
