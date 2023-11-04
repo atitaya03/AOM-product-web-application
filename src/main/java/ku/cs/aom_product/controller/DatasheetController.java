@@ -51,11 +51,11 @@ public class DatasheetController {
     @PostMapping("create")
     public String createDataSheet(@RequestParam("action") String action,@ModelAttribute DatasheetRequest request, Model model){
         if ("submit1".equals(action)) {
-           request.setStatus(String.valueOf(Status.COMPLETE));
+           request.setStatus(Status.COMPLETE);
             mocaService.use(request.getMocaVolume());
             chemicalService.useChemical(request.getChemicalName(),request.getChemicalVolume());
         } else if ("submit2".equals(action)) {
-            request.setStatus(String.valueOf(Status.WAITING));
+            request.setStatus(Status.WAITING);
         }
         datasheetService.createDataSheet(request);
         return "redirect:/datasheets";
@@ -66,6 +66,12 @@ public class DatasheetController {
         Product product = datasheetService.getOneById(id);
         model.addAttribute("product",product);
         return "datasheet-detail";
+    }
+
+    @PostMapping("/{id}/produce")
+    public String getOneDatasheet(@PathVariable UUID id){
+        datasheetService.updateStatus(id,Status.ON_PRODUCTION);
+        return "redirect:/datasheets";
     }
 
 }

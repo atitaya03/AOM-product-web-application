@@ -37,9 +37,9 @@ public class DatasheetService {
         return repository.findAllByStatus(Status.WAITING);
     }
 
-    public void updateStatus(UUID id){
+    public void updateStatus(UUID id, Status status){
         Product record  = repository.findById(id).get();
-        record.setStatus(Status.COMPLETE);
+        record.setStatus(status);
         repository.save(record);
 
     }

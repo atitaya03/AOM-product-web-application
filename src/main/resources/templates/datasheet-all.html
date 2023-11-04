@@ -18,10 +18,7 @@
     <a class="btn btn-primary" th:href="@{/datasheets/create}">สร้าง</a>
 
     <div class="mb-3">
-<<<<<<< HEAD
 
-=======
->>>>>>> 9af2669544d4776603d01b46a834cdc259f9552b
         <div class="select-dropdown">
             <select id="statusFilter" class="select-menu">
                 <option value="" disabled selected>Filtered By Status</option>
@@ -37,17 +34,17 @@
         <thead>
         <tr>
             <th>Name</th>
-            <th style="text-align: center" >Action</th>
             <th style="text-align: center">Status</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="datasheet : ${datasheets}">
             <td th:text="${datasheet.getName()}"></td>
+            <td style="text-align: center" class="status" th:text="${datasheet.getStatus()}"></td>
             <td style="text-align: center">
                 <a class="btn btn-primary" th:href="@{/datasheets/{id}(id=${datasheet.getId()})}">View</a>
             </td>
-            <td style="text-align: center" class="status" th:text="${datasheet.getStatus()}"></td>
+
         </tr>
 
         </tbody>

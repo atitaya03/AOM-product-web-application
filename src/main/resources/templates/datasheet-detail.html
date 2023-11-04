@@ -6,22 +6,61 @@
     <title>Title</title>
     <link th:rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link th:rel="stylesheet" th:href="@{/css/style.css}">
-
     <script th:src="@{/js/bootstrap.min.js}"></script>
-
 </head>
 <body>
 <div th:insert="~{fragments/sidebar}"></div>
 <div class="container w-50 p-3">
     <h1 class="display-6">Datasheet Detail</h1>
-    <form action="#" th:object="${datasheet}">
+    <div id ="default">
+        <label  th:text="${product.name}" name="name" id="inputPName" type="text" class="form-control"></label>
+        <label  th:text="${product.quantity}" name="quantity" id="inputQuantity" type="text" class="form-control"></label>
+        <label   th:value="${product.status}" th:text="${product.status}" name="status" id="status" type="text" class="form-control"></label>
+    </div>
+
+    <form id="form-complete" th:object="${product}" th:action="@{/datasheets/{id}/produce(id=${product.id})}" method="POST">
+
+        <button id="submit-complete-button" type="submit" class="btn btn-primary" >เริ่มผลิต</button>
+    </form>
+
+    <form id="form-onproduct" th:object="${product}" th:action="@{/processRecord/{id}/produce(id=${product.id})}" method="POST">
         <div class="mb-3">
-            <label for="inputName">Name</label>
-            <input disabled th:value="${product.name}" name="name" id="inputName" type="text" class="form-control">
-            <label for="inputQuantity">Quantity</label>
-            <input disabled th:value="${product.quantity}" name="name" id="inputQuantity" type="text" class="form-control">
+            <label for="date">Date</label>
+            <input name="date" id="date" type="text" class="form-control">
+            <label for="quantity">Quantity</label>
+            <input name="quantity" id="quantity" type="text" class="form-control">
         </div>
+        <button id="submit-onproduct-button" type="submit" class="btn btn-primary" >บันทึกข้อมูล</button>
     </form>
 </div>
 </body>
+
+<script>
+    // Get the status input element by ID
+    const status = document.getElementById("status").textContent;
+
+
+    if (status) {
+
+        const formComplete = document.getElementById("form-complete");
+        const formOnProduct = document.getElementById("form-onproduct");
+        const normal = document.getElementById("default");
+
+
+        if (status === "COMPLETE") {
+            formComplete.style.display = "block";
+            formOnProduct.style.display = "none";
+            normal.style.display = "block";
+        } else if (status === "ON_PRODUCTION") {
+            formComplete.style.display = "none";
+            formOnProduct.style.display = "block";
+            normal.style.display = "block";
+        }
+        else{
+            formComplete.style.display = "none";
+            formOnProduct.style.display = "none";
+            normal.style.display = "block";
+        }
+    }
+</script>
 </html>
