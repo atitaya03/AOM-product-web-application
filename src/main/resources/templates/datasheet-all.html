@@ -18,9 +18,9 @@
     <a class="btn btn-primary" th:href="@{/datasheets/create}">สร้าง</a>
 
     <div class="mb-3">
-        <button class="btn btn-primary" id="filterButton">Filter by Status</button>
         <div class="select-dropdown">
             <select id="statusFilter" class="select-menu">
+                <option value="" disabled selected>Filtered By Status</option>
                 <option value="" >All</option>
                 <option value="COMPLETE">Complete</option>
                 <option value="WAITING" >Waiting</option>
@@ -28,7 +28,6 @@
                 <option value="ON_PRODUCTION">On Production</option>
             </select>
         </div>
-
     </div>
     <table class="table table-bordered">
         <thead>
@@ -53,9 +52,12 @@
 </body>
 </html>
 <script>
-    document.getElementById("filterButton").addEventListener("click", function () {
-        var selectedStatus = document.getElementById("statusFilter").value;
-        var rows = document.querySelectorAll("table tbody tr");
+    var statusSelect = document.getElementById("statusFilter");
+    var rows = document.querySelectorAll("table tbody tr");
+
+    // Attach a change event listener to the select menu
+    statusSelect.addEventListener("change", function () {
+        var selectedStatus = statusSelect.value;
 
         rows.forEach(function (row) {
             var statusCell = row.querySelector("td.status");

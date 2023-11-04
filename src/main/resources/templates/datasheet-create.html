@@ -39,13 +39,13 @@
 
         <div class="mb-3" id="rectangleFields" style="display: none" >
             <label for="width" >กว้าง:</label>
-            <input type="number" id="width" class="form-control"  style="border-color: green";>
+            <input type="number" id="width" class="form-control"  style="border-color: green"; step="any">
 
             <label for="long">ยาว:</label>
-            <input type="number" id="long" class="form-control"  style="border-color: green";>
+            <input type="number" id="long" class="form-control"  style="border-color: green"; step="any">
 
             <label for="height">สูง:</label>
-            <input type="number" id="height" class="form-control"  style="border-color: green";>
+            <input type="number" id="height" class="form-control"  style="border-color: green"; step="any">
 
 
         </div>
@@ -54,16 +54,16 @@
 
         <div class="mb-3" id="cylindricalFields" style="display: none">
             <label for="diameter">เส้นผ่านศูนย์กลาง:</label>
-            <input type="number" id="diameter" class="form-control"  style="border-color: green";>
+            <input type="number" id="diameter" class="form-control"  style="border-color: green"; step="any">
 
 
         </div>
 
         <div class="mb-3" id="hallow-cylindricalFields" style="display: none">
             <label for="diameter">เส้นผ่านศูนย์กลางรอบนอก:</label>
-            <input type="number" id="outside-diameter" class="form-control"  style="border-color: green";>
+            <input type="number" id="outside-diameter" class="form-control"  style="border-color: green"; step="any">
             <label for="diameter">เส้นผ่านศูนย์กลางรอบใน:</label>
-            <input type="number" id="inside-diameter" class="form-control"  style="border-color: green";>
+            <input type="number" id="inside-diameter" class="form-control"  style="border-color: green"; step="any">
         </div>
 
         <button id="calculate-button"  class="btn btn-success" style="display: none">คำนวณปริมาตร</button>
@@ -111,7 +111,7 @@
 
         <div class="mb-3" id="chemical-solution" style="display: none">
             <label for="chemical-volume">ปริมาณน้ำยา</label>
-            <input type="number" id="chemical-volume" class="form-control" name="chemicalVolume" style="border-color: green";>
+            <input type="number" id="chemical-volume" class="form-control" name="chemicalVolume" style="border-color: green"; >
             <label for="moca-volume">ปริมาณmoca </label>
             <input type="number" id="moca-volume" class="form-control"  name="mocaVolume" style="border-color: green";>
         </div>
@@ -279,7 +279,7 @@
             let mocaVolume = 0;
             let chemicalVolume = 0;
 
-            mocaVolume = Math.ceil(volume * chemical.mocaRatio / (100+chemical.mocaRatio)/10) * 10 ;
+            mocaVolume = Math.floor(volume * chemical.mocaRatio / (100+chemical.mocaRatio)) ;
             chemicalVolume = Math.ceil((volume - mocaVolume)/10) *10;
             console.log(chemical.mocaRatio);
             console.log(mocaVolume);
