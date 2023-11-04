@@ -29,10 +29,10 @@
         <tbody>
         <tr th:each="datasheet : ${datasheets}">
             <td th:text="${datasheet.getName()}"></td>
-            <td style="text-align: center">
-                <a class="btn btn-primary" th:href="@{/datasheets/{id}(id=${datasheet.getId()})}">View</a>
-            </td>
             <td style="text-align: center" class="status" th:text="${datasheet.getStatus()}"></td>
+            <td style="text-align: center">
+                <a class="btn btn-primary" th:href="@{/datasheetWarehouse/{id}(id=${datasheet.getId()})}">View</a>
+            </td>
         </tr>
 
         </tbody>

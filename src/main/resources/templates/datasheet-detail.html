@@ -77,13 +77,15 @@
 
 
 
+
+
         if (status === "COMPLETE") {
             formComplete.style.display = "block";
             formOnProduct.style.display = "none";
             normal.style.display = "block";
             formCompleteProduct.style.display = "none";
         }
-        else if (status === "ON_PRODUCTION" && quantity >= sumProduced ) {
+        else if (status === "ON_PRODUCTION" && quantity <= sumProduced ) {
             formComplete.style.display = "none";
             formOnProduct.style.display = "none";
             normal.style.display = "block";
