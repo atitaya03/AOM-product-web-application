@@ -3,14 +3,15 @@ import ku.cs.aom_product.entity.Chemical;
 import ku.cs.aom_product.entity.Hardness;
 import ku.cs.aom_product.entity.Mold;
 
+import ku.cs.aom_product.model.MocaRequest;
+import ku.cs.aom_product.model.UpdateChemicalRequest;
 import ku.cs.aom_product.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api")
@@ -32,6 +33,16 @@ public class ApiController {
     public List<Chemical> getChemical(@PathVariable int hardness) {
         List<Chemical> chemicalList =  chemicalService.getChemicalsByHardness(hardness);
         return  chemicalList;
+    }
+
+    @PutMapping("/chemicals/{name}/use")
+    public void useChemical(@PathVariable String name, @ModelAttribute UpdateChemicalRequest request, Model model) {
+        chemicalService.useChemical(name,request);
+    }
+
+    @PutMapping("/moca/use")
+    public void useChemical(@ModelAttribute MocaRequest request, Model model) {
+        mocaService.use(request);
     }
 
     @GetMapping("/hardness")

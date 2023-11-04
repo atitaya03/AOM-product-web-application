@@ -99,8 +99,8 @@
         </div>
 
         <div class="mb-3">
-            <label for="chemical">น้ำยา</label>
-            <select class="form-control" id="chemical" name="chemical">
+            <label for="chemicalName">น้ำยา</label>
+            <select class="form-control" id="chemicalName" name="chemicalName">
                 <option value=""  hidden>
                     เลือกน้ำยา
                 </option>
@@ -116,8 +116,8 @@
             <input type="number" id="moca-volume" class="form-control"  name="mocaVolume" style="border-color: green";>
         </div>
         <input type="hidden" name="action" id="action" value="">
-        <button id="submit1-button" type="submit" class="btn btn-primary" value="submit1" style="display: none">สร้าง</button>
-        <button id="submit2-button" type="submit" class="btn btn-primary" value="submit2" style="display: none">สร้างรอน้ำยา</button>
+        <button id="submit1-button"  class="btn btn-primary" value="submit1" style="display: none">สร้าง</button>
+        <button id="submit2-button"  class="btn btn-primary" value="submit2" style="display: none">สร้างรอน้ำยา</button>
     </form>
 
 
@@ -126,7 +126,7 @@
 </div>
 <script>
         const hardnessSelect = document.getElementById('hardness');
-        const chemicalSelect = document.getElementById('chemical');
+        const chemicalSelect = document.getElementById('chemicalName');
         const moldSelect = document.getElementById('moldId');
 
         const getChemical = async (hardness) =>  {
@@ -164,9 +164,6 @@
         }
         const createHardnessSelect = async () => {
             const hardness = await getHardness();
-
-
-
             hardness.forEach((hardness) => {
                 const option = document.createElement('option');
                 option.value = parseInt(hardness.hardness);
@@ -184,27 +181,13 @@
 
             chemicals.forEach((chemical)=>{
                 const option = document.createElement('option');
-                option.value = chemical;
+                option.value = chemical.name;
                 option.text = chemical.name;
                 option.dataset.chemical = JSON.stringify(chemical);
 
 
                 chemicalSelect.appendChild(option)
             })
-        })
-        moldSelect.addEventListener('change',async (e) => {
-            const mold = e.target.value;
-            console.log(mold);
-        })
-
-        chemicalSelect.addEventListener('change', async (e) => {
-            const selectedOption = e.target.options[e.target.selectedIndex];
-            const chemicalData = selectedOption.dataset.chemical;
-
-            if (chemicalData) {
-                const chemical = JSON.parse(chemicalData);
-                console.log(chemical.volume);
-            }
         })
 
 
@@ -279,13 +262,15 @@
 
         document.getElementById('calculate-chem-button').addEventListener('click', async function (event) {
             event.preventDefault();
+
             const mocaVolRemain = await getVolMoca();
 
             const quantity = (document.getElementById("inputQuantity")).value;
 
 
-            const selectedChemicalOption = document.getElementById('chemical').options[document.getElementById('chemical').selectedIndex];
+            const selectedChemicalOption = document.getElementById('chemicalName').options[document.getElementById('chemicalName').selectedIndex];
             const chemical = JSON.parse(selectedChemicalOption.dataset.chemical);
+
             const chemicalVolRemain = chemical.volume;
 
 
@@ -304,12 +289,6 @@
             document.getElementById("moca-volume").value = mocaVolume;
             $("#chemical-solution").show();
 
-            console.log("need moca", mocaVolume * quantity );
-            console.log("moca left", mocaVolRemain );
-
-            console.log("need chem" , chemicalVolume * quantity );
-            console.log( "chem left" , chemicalVolRemain );
-
             if( (mocaVolume * quantity) <= mocaVolRemain && (chemicalVolume * quantity) <= chemicalVolRemain){
                 $("#submit1-button").show();
                 $("#submit2-button").hide();
@@ -321,18 +300,39 @@
             }
 
 
-
-
-
-
         });
         $("#submit1-button").on("click", function() {
+            const chemical = document.getElementById('chemicalName').value;
+            console.log(chemical);
             $("#action").val("submit1");
+            const chemicalVolume = parseFloat(document.getElementById("chemical-volume").value);
+            const chemRequest =  JSON.stringify({ volume: chemicalVolume });
+
+            const mocaVolume = parseFloat(document.getElementById("moca-volume").value);
+            const mocaRequest =  JSON.stringify({ volume: mocaVolume });
+
+            fetch(`/chemicals/${chemical}/use`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: chemRequest ,
+            })
+
+            fetch("/moca/use", {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: mocaRequest ,
+            })
         });
 
         $("#submit2-button").on("click", function() {
             $("#action").val("submit2");
         });
+
+
 
 
 </script>

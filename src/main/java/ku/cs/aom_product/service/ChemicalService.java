@@ -42,9 +42,16 @@ public class ChemicalService {
         chemicalRepository.save(record);
     }
 
-    public void addChemical(UUID id, UpdateChemicalRequest request){
-        Chemical record = chemicalRepository.findById(id).get();
+    public void addChemical(String name, UpdateChemicalRequest request){
+        Chemical record = chemicalRepository.findByName(name);
         double newVolume = record.getVolume() + record.getVolume();
+        record.setVolume(newVolume);
+        chemicalRepository.save(record);
+
+    }
+    public void useChemical(String name, UpdateChemicalRequest request){
+        Chemical record = chemicalRepository.findByName(name);
+        double newVolume = record.getVolume() - record.getVolume();
         record.setVolume(newVolume);
         chemicalRepository.save(record);
 

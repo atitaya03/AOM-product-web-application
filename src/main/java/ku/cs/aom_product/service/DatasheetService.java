@@ -33,7 +33,7 @@ public class DatasheetService {
 
     public void createDataSheet(DatasheetRequest request){
         Product record = modelMapper.map(request,Product.class);
-        Chemical chemical = chemicalRepository.findByName(request.getChemical());
+        Chemical chemical = chemicalRepository.findByName(request.getChemicalName());
         System.out.println(request);
         //Mold mold = moldRepository.findById(request.getMoldId()).get();
        // record.setMold(mold);

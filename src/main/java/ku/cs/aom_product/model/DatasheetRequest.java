@@ -18,5 +18,5 @@ public class DatasheetRequest {
     private String status;
 
     private UUID moldId;
-    private String chemical;
+    private String chemicalName;
 }

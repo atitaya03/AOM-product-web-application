@@ -53,7 +53,7 @@ public class DatasheetController {
         }
 
         datasheetService.createDataSheet(request);
-        return "redirect:/datasheets";
+        return "datasheet-create";
     }
 
 }

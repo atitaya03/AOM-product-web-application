@@ -1,9 +1,8 @@
 package ku.cs.aom_product.controller;
 
 
-import ku.cs.aom_product.entity.Chemical;
-import ku.cs.aom_product.entity.Hardness;
 import ku.cs.aom_product.model.ChemicalRequest;
+import ku.cs.aom_product.model.UpdateChemicalRequest;
 import ku.cs.aom_product.service.ChemicalService;
 import ku.cs.aom_product.service.HardnessService;
 import org.modelmapper.ModelMapper;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/chemicals")
@@ -33,16 +32,18 @@ public class ChemicalController {
         return "chemical-view";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/create")
     public String getChemicalForm(Model model) {
         model.addAttribute("hardnessList",hardnessService.getAllHardness());
-        return "chemical-add";
+        return "chemical-create";
     }
 
-    @PostMapping("/add")
-    public String addChemical(@ModelAttribute ChemicalRequest request, Model model) {
+    @PostMapping("/create")
+    public String createChemical(@ModelAttribute ChemicalRequest request, Model model) {
 
         chemicalService.createChemical(request);
         return "redirect:/chemicals";
     }
+
+
 }
