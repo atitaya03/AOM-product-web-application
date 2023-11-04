@@ -34,6 +34,7 @@
             <td th:text="${chemical.getHardness().getHardness()}"></td>
             <td th:text="${chemical.getOvenTime()}"></td>
             <td th:text="${chemical.getSolidTime()}"></td>
+            <td> <a class="btn btn-primary" th:href="@{/chemicals/{name}(name = ${chemical.name})}">เพื่มน้ำยา</a> </td>
         </tr>
     </table>
 

@@ -15,21 +15,9 @@
 
 <div class="container w-50 p-3">
     <h1 class="display-6">Datasheet</h1>
-    <a class="btn btn-primary" th:href="@{/datasheets/create}">สร้าง</a>
 
-    <div class="mb-3">
 
-        <div class="select-dropdown">
-            <select id="statusFilter" class="select-menu">
-                <option value="" >All</option>
-                <option value="COMPLETE">Complete</option>
-                <option value="WAITING" >Waiting</option>
-                <option value="COMPLETE_PRODUCTION" >Complete Production</option>
-                <option value="ON_PRODUCTION">On Production</option>
-            </select>
-        </div>
 
-    </div>
     <table class="table table-bordered">
         <thead>
         <tr>
@@ -52,18 +40,3 @@
 </div>
 </body>
 </html>
-<script>
-    document.getElementById("statusFilter").addEventListener("change", function () {
-        var selectedStatus = document.getElementById("statusFilter").value;
-        var rows = document.querySelectorAll("table tbody tr");
-
-        rows.forEach(function (row) {
-            var statusCell = row.querySelector("td.status");
-            if (selectedStatus === "" || statusCell.textContent === selectedStatus) {
-                row.style.display = "table-row";
-            } else {
-                row.style.display = "none";
-            }
-        });
-    });
-</script>

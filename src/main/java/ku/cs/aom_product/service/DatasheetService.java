@@ -1,6 +1,7 @@
 package ku.cs.aom_product.service;
 
 
+import ku.cs.aom_product.common.Status;
 import ku.cs.aom_product.entity.Chemical;
 import ku.cs.aom_product.entity.Mold;
 import ku.cs.aom_product.entity.Product;
@@ -32,6 +33,16 @@ public class DatasheetService {
         return repository.findAll();
     }
 
+    public List<Product> getAllWaitingProduct(){
+        return repository.findAllByStatus(Status.WAITING);
+    }
+
+    public void updateStatus(UUID id){
+        Product record  = repository.findById(id).get();
+        record.setStatus(Status.COMPLETE);
+        repository.save(record);
+
+    }
     public void createDataSheet(DatasheetRequest request){
         Product record = modelMapper.map(request,Product.class);
         Chemical chemical = chemicalRepository.findByName(request.getChemicalName());

@@ -30,6 +30,10 @@ public class ChemicalService {
         return chemicalRepository.findAll();
     }
 
+    public Chemical getChemicalByName(String name){
+        return chemicalRepository.findByName(name);
+    }
+
     public List<Chemical> getChemicalsByHardness(int hardness){
         return chemicalRepository.findChemicalsByHardness_Hardness(hardness);
     }
@@ -42,9 +46,9 @@ public class ChemicalService {
         chemicalRepository.save(record);
     }
 
-    public void addChemical(String name, UpdateChemicalRequest request){
+    public void addChemical(String name, Double addChem){
         Chemical record = chemicalRepository.findByName(name);
-        double newVolume = record.getVolume() + record.getVolume();
+        double newVolume = record.getVolume() + addChem;
         record.setVolume(newVolume);
         chemicalRepository.save(record);}
 
