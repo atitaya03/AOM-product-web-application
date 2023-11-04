@@ -8,6 +8,7 @@ import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.UUID;
 
 @Data
@@ -17,7 +18,7 @@ public class ProcessRecord {
     @GeneratedValue
     private UUID id;
 
-    private LocalDate date;
+    private Date date;
     private int quantityRecord;
 
 

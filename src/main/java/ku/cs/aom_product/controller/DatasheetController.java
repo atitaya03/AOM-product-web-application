@@ -2,12 +2,10 @@ package ku.cs.aom_product.controller;
 
 import ku.cs.aom_product.common.Status;
 import ku.cs.aom_product.entity.Chemical;
+import ku.cs.aom_product.entity.ProcessRecord;
 import ku.cs.aom_product.entity.Product;
 import ku.cs.aom_product.model.DatasheetRequest;
-import ku.cs.aom_product.service.ChemicalService;
-import ku.cs.aom_product.service.DatasheetService;
-import ku.cs.aom_product.service.HardnessService;
-import ku.cs.aom_product.service.MocaService;
+import ku.cs.aom_product.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,6 +24,9 @@ public class DatasheetController {
 
     @Autowired
     private DatasheetService datasheetService;
+
+    @Autowired
+    private ProcessRecordService processRecordService;
     @Autowired
     private HardnessService hardnessService;
 
@@ -64,14 +65,25 @@ public class DatasheetController {
     @GetMapping("/{id}")
     public String getOneDatasheet(@PathVariable UUID id, Model model){
         Product product = datasheetService.getOneById(id);
+        List<ProcessRecord> processRecordList = processRecordService.getProcessRecordByProductId(id);
+        int sumProdeced = processRecordService.getProducedProcessRecordByProductId(id);
         model.addAttribute("product",product);
+        model.addAttribute("processes",processRecordList);
+        model.addAttribute("sumProduced",sumProdeced);
         return "datasheet-detail";
     }
 
     @PostMapping("/{id}/produce")
-    public String getOneDatasheet(@PathVariable UUID id){
+    public String produce(@PathVariable UUID id){
         datasheetService.updateStatus(id,Status.ON_PRODUCTION);
         return "redirect:/datasheets";
     }
+
+    @PostMapping("/{id}/producefinish")
+    public String finishProduct(@PathVariable UUID id){
+        datasheetService.updateStatus(id,Status.COMPLETE_PRODUCTION);
+        return "redirect:/datasheets";
+    }
+
 
 }
