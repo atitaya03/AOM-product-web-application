@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class DatasheetService {
@@ -34,11 +35,12 @@ public class DatasheetService {
     public void createDataSheet(DatasheetRequest request){
         Product record = modelMapper.map(request,Product.class);
         Chemical chemical = chemicalRepository.findByName(request.getChemicalName());
-        System.out.println(request);
-        //Mold mold = moldRepository.findById(request.getMoldId()).get();
-       // record.setMold(mold);
         record.setChemical(chemical);
         repository.save(record);
-
     }
+
+    public Product getOneById(UUID id){
+        return repository.findById(id).get();
+    }
+
 }

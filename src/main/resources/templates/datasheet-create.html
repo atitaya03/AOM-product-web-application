@@ -265,6 +265,7 @@
 
             const mocaVolRemain = await getVolMoca();
 
+
             const quantity = (document.getElementById("inputQuantity")).value;
 
 
@@ -272,9 +273,6 @@
             const chemical = JSON.parse(selectedChemicalOption.dataset.chemical);
 
             const chemicalVolRemain = chemical.volume;
-
-
-
             const volume = parseFloat(document.getElementById('volume').value);
 
 
@@ -283,6 +281,8 @@
 
             mocaVolume = Math.ceil(volume * chemical.mocaRatio / (100+chemical.mocaRatio)/10) * 10 ;
             chemicalVolume = Math.ceil((volume - mocaVolume)/10) *10;
+            console.log(chemical.mocaRatio);
+            console.log(mocaVolume);
 
 
             document.getElementById("chemical-volume").value = chemicalVolume;
@@ -302,30 +302,7 @@
 
         });
         $("#submit1-button").on("click", function() {
-            const chemical = document.getElementById('chemicalName').value;
-            console.log(chemical);
             $("#action").val("submit1");
-            const chemicalVolume = parseFloat(document.getElementById("chemical-volume").value);
-            const chemRequest =  JSON.stringify({ volume: chemicalVolume });
-
-            const mocaVolume = parseFloat(document.getElementById("moca-volume").value);
-            const mocaRequest =  JSON.stringify({ volume: mocaVolume });
-
-            fetch(`/chemicals/${chemical}/use`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: chemRequest ,
-            })
-
-            fetch("/moca/use", {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: mocaRequest ,
-            })
         });
 
         $("#submit2-button").on("click", function() {

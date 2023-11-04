@@ -46,12 +46,13 @@ public class ChemicalService {
         Chemical record = chemicalRepository.findByName(name);
         double newVolume = record.getVolume() + record.getVolume();
         record.setVolume(newVolume);
-        chemicalRepository.save(record);
+        chemicalRepository.save(record);}
 
-    }
-    public void useChemical(String name, UpdateChemicalRequest request){
+
+
+    public void useChemical(String name, Double useChem){
         Chemical record = chemicalRepository.findByName(name);
-        double newVolume = record.getVolume() - record.getVolume();
+        double newVolume = record.getVolume() - useChem;
         record.setVolume(newVolume);
         chemicalRepository.save(record);
 

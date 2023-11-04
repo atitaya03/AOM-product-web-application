@@ -8,6 +8,8 @@ import ku.cs.aom_product.model.UpdateChemicalRequest;
 import ku.cs.aom_product.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import ku.cs.aom_product.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,17 +36,6 @@ public class ApiController {
         List<Chemical> chemicalList =  chemicalService.getChemicalsByHardness(hardness);
         return  chemicalList;
     }
-
-    @PutMapping("/chemicals/{name}/use")
-    public void useChemical(@PathVariable String name, @ModelAttribute UpdateChemicalRequest request, Model model) {
-        chemicalService.useChemical(name,request);
-    }
-
-    @PutMapping("/moca/use")
-    public void useChemical(@ModelAttribute MocaRequest request, Model model) {
-        mocaService.use(request);
-    }
-
     @GetMapping("/hardness")
     public List<Hardness> getAllHardness() {
         List<Hardness> hardnessList =  hardnessService.getAllHardness();
@@ -61,5 +52,10 @@ public class ApiController {
     public double getVolumeMoca() {
         Double volume =  mocaService.getVolume();
         return  volume;
+    }
+
+    @PutMapping("/moca/use")
+    public void useMoca(@ModelAttribute MocaRequest requestBody) {
+        mocaService.use(requestBody.getVolume());
     }
 }
