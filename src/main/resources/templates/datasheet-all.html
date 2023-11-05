@@ -15,13 +15,12 @@
 
 <div class="container w-50 p-3">
     <h1 class="display-6">Datasheet</h1>
-    <a class="btn btn-primary" th:href="@{/datasheets/create}"  style="margin-top: 20px">สร้าง</a>
-
+    <button class="button-13" role="button" th:onclick="window.location.href='/datasheets/create'">สร้าง</button>
     <div class="mb-3">
 
         <div class="select-dropdown"  style="margin-top: 20px">
             <select id="statusFilter" class="select-menu">
-                <option value="" disabled selected hidden>เลือก</option>
+                <option value="" disabled selected hidden>จัดเรียงตามสถานะ</option>
                 <option value="" >ทั้งหมด</option>
                 <option value="พร้อมผลิต">พร้อมผลิต</option>
                 <option value="รอน้ำยา" >รอน้ำยา</option>
@@ -33,8 +32,9 @@
     <table class="table table-bordered">
         <thead>
         <tr>
-            <th>ชื่อ</th>
-            <th style="text-align: center">สถานะ</th>
+            <th style="width:40%">ชื่อ</th>
+            <th style="width:40%; text-align: center">สถานะ</th>
+            <th style="width:40%; text-align: center ">หมายเหตุ</th>
         </tr>
         </thead>
         <tbody>
@@ -42,7 +42,7 @@
             <td th:text="${datasheet.getName()}"></td>
             <td style="text-align: center" class="status" th:text="${datasheet.getStatus()}"></td>
             <td style="text-align: center">
-                <a class="btn btn-primary" th:href="@{/datasheets/{id}(id=${datasheet.getId()})}">รายละเอียด</a>
+                <a class="underline" th:href="@{/datasheets/{id}(id=${datasheet.getId()})}">รายละเอียด</a>
             </td>
 
         </tr>
