@@ -17,12 +17,12 @@
     <h1 class="display-6">รายการโมลด์</h1>
     <button class="button-13" role="button" th:onclick="window.location.href='/molds/add'">เพิ่มโมลด์</button>
     <table class="table table-bordered"  style="margin-top: 20px"   >
-        <tr>
+        <tr style="text-align:center; " >
             <th>ชื่อ</th>
-            <th style="width:40%; text-align: center ">จำนวน</th>
+            <th style="width:40%">จำนวน</th>
 
         </tr>
-        <tr th:each="mold : ${molds}">
+        <tr style="text-align:center; " th:each="mold : ${molds}">
             <td th:text="${mold.getName()}"></td>
             <td th:text="${mold.getQuantity()}"></td>
 

@@ -9,7 +9,8 @@
 }
 body {
   min-height: 100%;
-  background: #fff;
+  background: #f7f7f7;
+  color: #212427;
 }
 
 nav {
@@ -47,7 +48,7 @@ nav .sidebar {
   height: 100%;
   width: 260px;
   padding: 20px 0;
-  background-color: #F6F6F6;
+  background-color: #eeeeee;
   box-shadow: 0 5px 1px rgba(0, 0, 0, 0.1);
   transition: all 0.4s ease;
   text-align :center;
@@ -70,12 +71,13 @@ nav.open .sidebar {
   align-items: center;
   margin: 8px 0;
   padding: 14px 12px;
-  border-radius: 8px;
+  border-radius: 20px;
   color: #212427;
   text-decoration: none;
 
 }
 .lists .nav-link:hover {
+  border-radius: 20px;
   background-color: #FF8538;
 }
 .nav-link .icon {
@@ -155,10 +157,9 @@ nav.open ~ .overlay {
   border: 1px solid #d5d9d9;
   border-radius: 24px;
   box-sizing: border-box;
-  color: #0f1111;
+  color: #212427;
   cursor: pointer;
-  display: inline-block;
-  font-family: "Amazon Ember",sans-serif;
+  display: block;
   font-size: 16px;
   line-height: 29px;
   padding: 0 10px 0 11px;
@@ -169,11 +170,13 @@ nav.open ~ .overlay {
   -webkit-user-select: none;
   touch-action: manipulation;
   vertical-align: middle;
-  width: 100px;
+  width: 130px;
 }
 
 .button-13:hover {
-  background-color: #f7fafa;
+border: 1px solid transparent;
+    color:white;
+  background-color: #FF8538;
 }
 
 .button-13:focus {
@@ -213,3 +216,4 @@ a{
     width: 100%;
   }
 }
+

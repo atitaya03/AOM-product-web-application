@@ -15,19 +15,23 @@
 
 <div class="container w-50 p-3">
     <h1 class="display-6">สูตรน้ำยา</h1>
+
     <button class="button-13" role="button" th:onclick="window.location.href='/chemicals/create'"sec:authorize="hasAnyAuthority('WAREHOUSE') or hasAnyAuthority('ADMIN')">เพิ่มน้ำยา</button>
     <table class="table table-bordered" style="margin-top: 20px; width: 100%;">
 
-        <tr>
+
+        <tr style="text-align:center;">
             <th style="width: 15%;">ชื่อ</th>
             <th style="width: 15%;">ปริมาณ</th>
             <th style="width: 15%;">สัดส่วนmoca</th>
             <th style="width: 15%;">ความแข็ง</th>
+
             <th style="width: 15%;">เวลาในการอบ</th>
             <th style="width: 15%;">เวลาในการเซตตัว</th>
             <th style="width: 15%;" sec:authorize="hasAnyAuthority('WAREHOUSE') or hasAnyAuthority('ADMIN')" >หมายเหตุ</th>
+
         </tr>
-        <tr th:each="chemical : ${chemicals}">
+        <tr style="text-align:center; "th:each="chemical : ${chemicals}">
             <td th:text="${chemical.getName()}"></td>
             <td th:text="${chemical.getVolume()}"></td>
             <td th:text="${chemical.getMocaRatio()}"></td>
