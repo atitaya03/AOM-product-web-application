@@ -41,8 +41,6 @@ public class DatasheetController {
 
     @GetMapping("create")
     public String getDataSheetForm(Model model){
-        List<String> shapeOptions = Arrays.asList("สี่เหลี่ยม", "แท่งตัน", "แท่งมีรู");
-        model.addAttribute("shapeOptions",shapeOptions );
         model.addAttribute("hardnessList",hardnessService.getAllHardness());
         model.addAttribute("chemicals",chemicalService.getAllChemicals());
         return "datasheet-create";

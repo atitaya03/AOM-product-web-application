@@ -5,6 +5,7 @@ package ku.cs.aom_product.service;
 import ku.cs.aom_product.entity.Member;
 import ku.cs.aom_product.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -36,11 +38,20 @@ public class UserDetailsServiceImp implements UserDetailsService {
         }
 
 
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(user.getRole()));
+        List<GrantedAuthority> authorities = Collections.singletonList(
+                new SimpleGrantedAuthority(user.getRole())
+
+        );
+
+        System.out.println(authorities);
+
 
 
         return new org.springframework.security.core.userdetails.User(
-                user.getUsername(), user.getPassword(), authorities);
-    }
-}
+                user.getUsername(),
+                user.getPassword(),
+                authorities
+        );
+
+
+}}

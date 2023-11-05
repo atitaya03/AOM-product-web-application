@@ -15,11 +15,11 @@
 
 <div class="container w-50 p-3">
     <h1 class="display-6">รายการโมลด์</h1>
-    <a class="btn btn-primary" th:href="@{/molds/add}"  style="margin-top: 20px">เพิ่มโมลด์ใหม่</a>
+    <button class="button-13" role="button" th:onclick="window.location.href='/molds/add'">เพิ่มโมลด์</button>
     <table class="table table-bordered"  style="margin-top: 20px"   >
         <tr>
             <th>ชื่อ</th>
-            <th>จำนวน</th>
+            <th style="width:40%; text-align: center ">จำนวน</th>
 
         </tr>
         <tr th:each="mold : ${molds}">

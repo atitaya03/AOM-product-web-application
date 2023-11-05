@@ -23,10 +23,8 @@ public class SignupService {
     }
     public void createUser(SignupRequest user){
         Member record = modelMapper.map(user, Member.class);
-        record.setRole("ROLE_USER");
         String hashedPassword = passwordEncoder.encode(user.getPassword());
         record.setPassword(hashedPassword);
-
         repository.save(record);
     }
 

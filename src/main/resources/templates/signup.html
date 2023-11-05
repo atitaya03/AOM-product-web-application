@@ -19,7 +19,7 @@
 
         <div id="success-msg" class="alert alert-success"
              th:if="${signupSuccess}">
-            Successfully signed up! Please <a th:href="@{/login}">เข้าสู่ระบบ</a>.
+           สมัครสำเร็จ
         </div>
         <div id="error-msg" class="alert alert-danger"
              th:if="${signupError}">
@@ -38,15 +38,27 @@
                    name="username">
         </div>
         <div class="mb-3">
-            <label for="inputPassword">password</label>
+            <label for="inputRole">ประเภทพนักงาน</label>
+            <select class="form-control" id="inputRole" name="role" required >
+                <option value="" style="display: none">เลือก</option>
+                <option value="PLANNER">ฝ่ายวางแผน</option>
+                <option value="WAREHOUSE">ฝ่ายจัดซื้อ</option>
+                <option value="PRODUCTION">ฝ่ายผลิต</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="inputPassword">รหัสผ่าน</label>
             <input id="inputPassword" type="password" class="form-control"
                    name="password">
         </div>
         <button id="submit-button" type="submit" class="btn btn-primary">สมัคร</button>
-        <a style="background-color: gray " class="btn btn-primary  " th:href="@{/login}">เข้าสู่ระบบ</a>
     </form>
 </div>
 
 
 </body>
+
+<script>
+
+</script>
 </html>

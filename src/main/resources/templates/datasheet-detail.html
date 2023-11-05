@@ -68,15 +68,15 @@
     </div>
 
     <form id="form-complete" th:object="${product}" th:action="@{/datasheets/{id}/produce(id=${product.id})}" method="POST">
-        <button id="submit-complete-button" type="submit" class="btn btn-primary"  style="margin-top: 20px">เริ่มผลิต</button>
+        <button id="submit-complete-button" type="submit" class="btn btn-primary"  style="margin-top: 20px"  sec:authorize="hasAnyAuthority('PLANNER') or hasAnyAuthority('ADMIN')">เริ่มผลิต</button>
     </form>
 
     <form id="form-completeproduct" th:object="${product}" th:action="@{/datasheets/{id}/producefinish(id=${product.id})}" method="POST">
-        <button id="submit-completeproduct-button" type="submit" class="btn btn-primary"  style="margin-top: 20px">สิ้นสุดการผลิต</button>
+        <button id="submit-completeproduct-button" type="submit" class="btn btn-primary"  style="margin-top: 20px"  sec:authorize="hasAnyAuthority('PLANNER') or hasAnyAuthority('ADMIN')">สิ้นสุดการผลิต</button>
     </form>
 
-    <form id="form-onproduct" th:object="${product}" th:action="@{/processRecords/{id}(id=${product.id})}" method="POST">
-        <div class="mb-3">
+    <form id="form-onproduct" th:object="${product}" th:action="@{/processRecords/{id}(id=${product.id})}" method="POST" >
+        <div class="mb-3" sec:authorize="hasAnyAuthority('PLANNER') or hasAnyAuthority('ADMIN')">
             <label for="date">วันที่</label>
             <input name="date" id="date" type="text" class="form-control" data-provide="datepicker" required>
             <label for="quantity">จำนวนที่ผลิตได้</label>

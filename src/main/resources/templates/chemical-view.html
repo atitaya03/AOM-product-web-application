@@ -15,9 +15,8 @@
 
 <div class="container w-50 p-3">
     <h1 class="display-6">สูตรน้ำยา</h1>
-
-    <a class="btn btn-primary" th:href="@{/chemicals/create}" style="margin-top: 20px">เพิ่มน้ำยา</a>
-    <table class="table table-bordered table-striped table-hover" style="margin-top: 20px; width: 100%;">
+    <button class="button-13" role="button" th:onclick="window.location.href='/chemicals/create'"sec:authorize="hasAnyAuthority('WAREHOUSE') or hasAnyAuthority('ADMIN')">เพิ่มน้ำยา</button>
+    <table class="table table-bordered" style="margin-top: 20px; width: 100%;">
 
         <tr>
             <th style="width: 15%;">ชื่อ</th>
@@ -26,6 +25,7 @@
             <th style="width: 15%;">ความแข็ง</th>
             <th style="width: 15%;">เวลาในการอบ</th>
             <th style="width: 15%;">เวลาในการเซตตัว</th>
+            <th style="width: 15%;" sec:authorize="hasAnyAuthority('WAREHOUSE') or hasAnyAuthority('ADMIN')" >หมายเหตุ</th>
         </tr>
         <tr th:each="chemical : ${chemicals}">
             <td th:text="${chemical.getName()}"></td>
@@ -34,7 +34,7 @@
             <td th:text="${chemical.getHardness().getHardness()}"></td>
             <td th:text="${chemical.getOvenTime()}"></td>
             <td th:text="${chemical.getSolidTime()}"></td>
-            <td> <a class="btn btn-primary" th:href="@{/chemicals/{name}(name = ${chemical.name})}">เพื่มน้ำยา</a> </td>
+            <td sec:authorize="hasAnyAuthority('WAREHOUSE') or hasAnyAuthority('ADMIN')"> <a class="underline" th:href="@{/chemicals/{name}(name = ${chemical.name})}">เพิ่มน้ำยา</a> </td>
         </tr>
     </table>
 </div>
