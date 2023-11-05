@@ -48,7 +48,7 @@ nav .sidebar {
   height: 100%;
   width: 260px;
   padding: 20px 0;
-  background-color: #eeeeee;
+  background-color: #f26522;
   box-shadow: 0 5px 1px rgba(0, 0, 0, 0.1);
   transition: all 0.4s ease;
   text-align :center;
@@ -72,7 +72,7 @@ nav.open .sidebar {
   margin: 8px 0;
   padding: 14px 12px;
   border-radius: 20px;
-  color: #212427;
+  color: white;
   text-decoration: none;
 
 }
@@ -83,11 +83,11 @@ nav.open .sidebar {
 .nav-link .icon {
   margin-right: 14px;
   font-size: 20px;
-  color: #434348;
+  color: white;
 }
 .nav-link .link {
   font-size: 16px;
-  color: #434348;
+  color: white;
   font-weight: 400;
 }
 .lists .nav-link:hover .icon,

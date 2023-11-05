@@ -16,10 +16,10 @@
 <body>
 <div th:insert="~{fragments/header}"></div>
 <div class="container w-50 p-3">
-    <h1 class="display-6">รายละเอียด</h1>
+    <h1 class="display-6">รายละเอียด Datasheet</h1>
     <div id="default">
         <div>
-            <table style="border-collapse: collapse; width: 100%; margin-top: 50px">
+            <table style="border-collapse: collapse; width: 70%; margin-top: 20px">
                 <tr>
                     <td style="padding: 8px; text-align: left;"><strong>ชื่อ :</strong></td>
                     <td style="padding: 8px;"><label th:text="${product.name}" name="name" id="inputPName" type="text"></label></td>
@@ -51,7 +51,7 @@
             </table>
         </div>
 
-        <table class="table table-bordered" id="process-table" style="margin-top: 20px">
+        <table class="table table-bordered" id="process-table" style="margin-top: 20px; text-align:center">
             <tr>
                 <th style="padding: 8px;">วัน</th>
                 <th style="padding: 8px;">จำนวน</th>
@@ -68,11 +68,11 @@
     </div>
 
     <form id="form-complete" th:object="${product}" th:action="@{/datasheets/{id}/produce(id=${product.id})}" method="POST">
-        <button id="submit-complete-button" type="submit" class="btn btn-primary"  style="margin-top: 20px"  sec:authorize="hasAnyAuthority('PLANNER') or hasAnyAuthority('ADMIN')">เริ่มผลิต</button>
+        <button id="submit-complete-button" type="submit" class="button-13"  style="margin-top: 20px"  sec:authorize="hasAnyAuthority('PLANNER') or hasAnyAuthority('ADMIN')">เริ่มผลิต</button>
     </form>
 
     <form id="form-completeproduct" th:object="${product}" th:action="@{/datasheets/{id}/producefinish(id=${product.id})}" method="POST">
-        <button id="submit-completeproduct-button" type="submit" class="btn btn-primary"  style="margin-top: 20px"  sec:authorize="hasAnyAuthority('PLANNER') or hasAnyAuthority('ADMIN')">สิ้นสุดการผลิต</button>
+        <button id="submit-completeproduct-button" type="submit" class="button-13"  style="margin-top: 20px"  sec:authorize="hasAnyAuthority('PLANNER') or hasAnyAuthority('ADMIN')">สิ้นสุดการผลิต</button>
     </form>
 
     <form id="form-onproduct" th:object="${product}" th:action="@{/processRecords/{id}(id=${product.id})}" method="POST" >
