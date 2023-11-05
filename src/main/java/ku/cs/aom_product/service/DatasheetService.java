@@ -34,7 +34,7 @@ public class DatasheetService {
     }
 
     public List<Product> getAllWaitingProduct(){
-        return repository.findAllByStatus(Status.WAITING);
+        return repository.findAllByStatus(Status.รอน้ำยา);
     }
 
     public void updateStatus(UUID id, Status status){

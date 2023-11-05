@@ -14,7 +14,7 @@
 </head>
 
 <body>
-<div th:insert="~{fragments/sidebar}"></div>
+<div th:insert="~{fragments/header}"></div>
 
 <div class="container w-50 p-3">
     <h1 class="display-6">สร้าง Datasheet </h1>
@@ -22,12 +22,12 @@
         <div class="mb-3">
             <label for="inputName">ชื่อ</label>
             <input id="inputName" type="input" class="form-control"
-                   name="name">
+                   name="name" required>
         </div>
 
         <div class="mb-3">
             <label for="inputShape">รูปทรง</label>
-            <select class="form-control" id="inputShape" name="shape" >
+            <select class="form-control" id="inputShape" name="shape" required >
                 <option value="" style="display: none">เลือกรูปทรง</option>
                 <option value="rectangle">สี่เหลี่ยม</option>
                 <option value="cylindrical">แท่งตัน</option>
@@ -39,13 +39,13 @@
 
         <div class="mb-3" id="rectangleFields" style="display: none" >
             <label for="width" >กว้าง:</label>
-            <input type="number" id="width" class="form-control"  style="border-color: green"; step="any">
+            <input type="number" id="width" class="form-control"  style="border-color: green"; step="any" min="0" >
 
             <label for="long">ยาว:</label>
-            <input type="number" id="long" class="form-control"  style="border-color: green"; step="any">
+            <input type="number" id="long" class="form-control"  style="border-color: green"; step="any" min="0" >
 
             <label for="height">สูง:</label>
-            <input type="number" id="height" class="form-control"  style="border-color: green"; step="any">
+            <input type="number" id="height" class="form-control"  style="border-color: green"; step="any" min="0"  >
 
 
         </div>
@@ -54,36 +54,36 @@
 
         <div class="mb-3" id="cylindricalFields" style="display: none">
             <label for="diameter">เส้นผ่านศูนย์กลาง:</label>
-            <input type="number" id="diameter" class="form-control"  style="border-color: green"; step="any">
+            <input type="number" id="diameter" class="form-control"  style="border-color: green"; step="any" min="0" >
 
 
         </div>
 
         <div class="mb-3" id="hallow-cylindricalFields" style="display: none">
             <label for="diameter">เส้นผ่านศูนย์กลางรอบนอก:</label>
-            <input type="number" id="outside-diameter" class="form-control"  style="border-color: green"; step="any">
+            <input type="number" id="outside-diameter" class="form-control"  style="border-color: green"; step="any"  min="0" >
             <label for="diameter">เส้นผ่านศูนย์กลางรอบใน:</label>
-            <input type="number" id="inside-diameter" class="form-control"  style="border-color: green"; step="any">
+            <input type="number" id="inside-diameter" class="form-control"  style="border-color: green"; step="any" min="0" >
         </div>
 
         <button id="calculate-button"  class="btn btn-success" style="display: none">คำนวณปริมาตร</button>
 
         <div class="mb-3">
             <label for="volume">ปริมาตร</label>
-            <input id="volume" class="form-control" name="volume">
+            <input type="number" id="volume" class="form-control" name="volume" step="any" min="0" required>
         </div>
 
         <div class="mb-3">
             <label for="inputQuantity">จำนวน</label>
             <input id="inputQuantity" type="number" class="form-control"
-                   name="quantity">
+                   name="quantity" min="0" required>
         </div>
 
         <div class="mb-3">
             <label for="moldId">โมล์ด</label>
-            <select class="form-control" id="moldId" name="moldId">
+            <select class="form-control" id="moldId" name="moldId" required>
                 <option value=""  hidden>
-                    เลือกโมล์ด
+                    เลือกโมลด์
                 </option>
             </select>
         </div>
@@ -91,7 +91,7 @@
 
         <div class="mb-3">
             <label for="hardness">ความแข็ง</label>
-            <select class="form-control" id="hardness" name="hardness">
+            <select class="form-control" id="hardness" name="hardness" required>
             <option value=""  hidden>
                 เลือก ความแข็ง
                 </option>
@@ -100,7 +100,7 @@
 
         <div class="mb-3">
             <label for="chemicalName">น้ำยา</label>
-            <select class="form-control" id="chemicalName" name="chemicalName">
+            <select class="form-control" id="chemicalName" name="chemicalName" required>
                 <option value=""  hidden>
                     เลือกน้ำยา
                 </option>
@@ -111,9 +111,9 @@
 
         <div class="mb-3" id="chemical-solution" style="display: none">
             <label for="chemical-volume">ปริมาณน้ำยา</label>
-            <input type="number" id="chemical-volume" class="form-control" name="chemicalVolume" style="border-color: green"; >
+            <input type="number" id="chemical-volume" class="form-control" name="chemicalVolume" style="border-color: green"; required>
             <label for="moca-volume">ปริมาณmoca </label>
-            <input type="number" id="moca-volume" class="form-control"  name="mocaVolume" style="border-color: green";>
+            <input type="number" id="moca-volume" class="form-control"  name="mocaVolume" style="border-color: green"; required>
         </div>
         <input type="hidden" name="action" id="action" value="">
         <button id="submit1-button"  class="btn btn-primary" value="submit1" style="display: none">สร้าง</button>
@@ -259,7 +259,13 @@
 
 
         });
-
+        $(document).ready(function() {
+            $('#calculate-chem-button').click(function() {
+                if ($('#volume').val() === "" || $('#inputQuantity').val() === "" || $('#moldId').val() === "" || $('#hardness').val() === "" || $('#chemicalName').val() === "") {
+                    alert("กรอกข้อมูลให้ครบ");
+                }
+            });
+        });
         document.getElementById('calculate-chem-button').addEventListener('click', async function (event) {
             event.preventDefault();
 

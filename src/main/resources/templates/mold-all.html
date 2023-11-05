@@ -11,12 +11,12 @@
     <script th:src="@{/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<div th:insert="~{fragments/sidebar}"></div>
+<div th:insert="~{fragments/header}"></div>
 
 <div class="container w-50 p-3">
     <h1 class="display-6">รายการโมลด์</h1>
-    <a class="btn btn-primary" th:href="@{/molds/add}">เพิ่มโมลด์ใหม่</a>
-    <table class="table table-bordered">
+    <a class="btn btn-primary" th:href="@{/molds/add}"  style="margin-top: 20px">เพิ่มโมลด์ใหม่</a>
+    <table class="table table-bordered"  style="margin-top: 20px"   >
         <tr>
             <th>ชื่อ</th>
             <th>จำนวน</th>

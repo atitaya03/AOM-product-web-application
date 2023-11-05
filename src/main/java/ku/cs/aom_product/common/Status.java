@@ -1,6 +1,6 @@
 package ku.cs.aom_product.common;
 
 public enum Status {
-    COMPLETE, WAITING, COMPLETE_PRODUCTION , ON_PRODUCTION;
+    พร้อมผลิต, รอน้ำยา, ผลิตสำเร็จ , ระหว่างการผลิต;
 }
 

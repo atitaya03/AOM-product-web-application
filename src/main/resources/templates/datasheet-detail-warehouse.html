@@ -14,20 +14,48 @@
     <script th:src="@{/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<div th:insert="~{fragments/sidebar}"></div>
+<div th:insert="~{fragments/header}"></div>
 <div class="container w-50 p-3">
-    <h1 class="display-6">Datasheet Detail</h1>
+    <h1 class="display-6">รายละเอียด datasheet </h1>
     <div id ="default">
-        <label th:text="${product.name}" name="name" id="inputPName" type="text" ></label>
-        <label th:value="${product.quantity}" th:text="${product.quantity}" name="quantity" id="total-quantity" type="text" ></label>
-        <label th:value="${product.status}" th:text="${product.status}" name="status" id="status" type="text" ></label>
-
+        <div>
+            <table style="border-collapse: collapse; width: 100%; margin-top: 50px">
+                <tr>
+                    <td style="padding: 8px; text-align: left;"><strong>ชื่อ :</strong></td>
+                    <td style="padding: 8px;"><label th:text="${product.name}" name="name" id="inputPName" type="text"></label></td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; text-align: left;"><strong>จำนวน :</strong></td>
+                    <td style="padding: 8px;"><label th:value="${product.quantity}" th:text="${product.quantity}" name="quantity" id="total-quantity" type="text"></label></td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; text-align: left;"><strong>สถานะ :</strong></td>
+                    <td style="padding: 8px;"><label th:value="${product.status}" th:text="${product.status}" name="status" id="status" type="text"></label></td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; text-align: left;"><strong>ปริมาตร :</strong></td>
+                    <td style="padding: 8px;"><label th:text="${product.getVolume()}" type="text"></label></td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; text-align: left;"><strong>ความแข็ง :</strong></td>
+                    <td style="padding: 8px;"><label th:text="${product.getHardness()}" type="text"></label></td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; text-align: left;"><strong>น้ำยา :</strong></td>
+                    <td style="padding: 8px;"><label th:text="${product.getChemical().getName()}" type="text"></label></td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; text-align: left;"><strong>ปริมาณน้ำยา :</strong></td>
+                    <td style="padding: 8px;"><label th:text="${product.getChemicalVolume()}" type="text"></label></td>
+                </tr>
+            </table>
+        </div>
 
     </div>
 
     <form id="form-complete" th:object="${product}" th:action="@{/datasheetWarehouse/{id}/complete(id=${product.id})}" method="POST">
 
-        <button id="submit-complete-button" type="submit" class="btn btn-primary" >อนุมัติน้ำยา</button>
+        <button id="submit-complete-button" type="submit" class="btn btn-primary" style="margin-top: 30px;">อนุมัติน้ำยา</button>
     </form>
 
 </div>

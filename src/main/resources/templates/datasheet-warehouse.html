@@ -11,28 +11,26 @@
     <script th:src="@{/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<div th:insert="~{fragments/sidebar}"></div>
+<div th:insert="~{fragments/header}"></div>
 
 <div class="container w-50 p-3">
-    <h1 class="display-6">Datasheet</h1>
+    <h1 class="display-6">รายการคำขอน้ำยา</h1>
 
 
 
-    <table class="table table-bordered">
+    <table class="table table-bordered" style="margin-top: 30px;">
         <thead>
         <tr>
-            <th>Name</th>
-            <th style="text-align: center" >Action</th>
-            <th style="text-align: center">Status</th>
+            <th>ชื่อ</th>
+
+            <th style="text-align: center">สถานะ</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="datasheet : ${datasheets}">
             <td th:text="${datasheet.getName()}"></td>
             <td style="text-align: center" class="status" th:text="${datasheet.getStatus()}"></td>
-            <td style="text-align: center">
-                <a class="btn btn-primary" th:href="@{/datasheetWarehouse/{id}(id=${datasheet.getId()})}">View</a>
-            </td>
+            <td> <a class="btn btn-primary" th:href="@{/datasheetWarehouse/{id}(id=${datasheet.getId()})}">รายละเอียด</a></td>
         </tr>
 
         </tbody>

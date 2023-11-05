@@ -11,16 +11,16 @@
 
 </head>
 <body>
-<div th:insert="~{fragments/sidebar}"></div>
+<div th:insert="~{fragments/header}"></div>
 <div class="container w-50 p-3">
-  <h1 class="display-6">Datasheet Detail</h1>
+  <h1 class="display-6">เพิ่มน้ำยา</h1>
   <form action="#" th:action="@{/chemicals/{name}(name = ${chemical.name})}" method="POST">
-    <div class="mb-3">
-      <label for="inputName">Name</label>
+    <div class="mb-4">
+      <label for="inputName">ชื่อ</label>
       <input disabled th:value="${chemical.name}" name="name" id="inputName" type="text" class="form-control">
-      <label for="volume">ปริมาณ</label>
-      <input  name="volume" id="volume" type="input" class="form-control">
-      <button id="submit-button" type="submit" class="btn btn-primary">เพิ่ม</button>
+      <label for="volume" style="margin-top: 10px">ปริมาณ</label>
+      <input  name="volume" id="volume" type="input" class="form-control" required>
+      <button id="submit-button" type="submit" class="btn btn-primary" style="margin-top: 20px">เพิ่ม</button>
     </div>
   </form>
 </div>

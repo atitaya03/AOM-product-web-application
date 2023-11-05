@@ -52,11 +52,11 @@ public class DatasheetController {
     @PostMapping("create")
     public String createDataSheet(@RequestParam("action") String action,@ModelAttribute DatasheetRequest request, Model model){
         if ("submit1".equals(action)) {
-           request.setStatus(Status.COMPLETE);
+           request.setStatus(Status.พร้อมผลิต);
             mocaService.use(request.getMocaVolume());
             chemicalService.useChemical(request.getChemicalName(),request.getChemicalVolume());
         } else if ("submit2".equals(action)) {
-            request.setStatus(Status.WAITING);
+            request.setStatus(Status.รอน้ำยา);
         }
         datasheetService.createDataSheet(request);
         return "redirect:/datasheets";
@@ -77,7 +77,7 @@ public class DatasheetController {
 
     @PostMapping("/{id}/produce")
     public String produce(@PathVariable UUID id){
-        datasheetService.updateStatus(id,Status.ON_PRODUCTION);
+        datasheetService.updateStatus(id,Status.ระหว่างการผลิต);
         return "redirect:/datasheets";
     }
 
@@ -85,7 +85,7 @@ public class DatasheetController {
 
     @PostMapping("/{id}/producefinish")
     public String finishProduct(@PathVariable UUID id){
-        datasheetService.updateStatus(id,Status.COMPLETE_PRODUCTION);
+        datasheetService.updateStatus(id,Status.ผลิตสำเร็จ);
         return "redirect:/datasheets";
     }
 

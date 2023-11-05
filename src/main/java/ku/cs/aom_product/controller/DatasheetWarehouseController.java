@@ -35,7 +35,7 @@ public class DatasheetWarehouseController {
 
     @PostMapping("/{id}/complete")
     public String complete(@PathVariable UUID id){
-        datasheetService.updateStatus(id, Status.COMPLETE);
+        datasheetService.updateStatus(id, Status.พร้อมผลิต);
         return "datasheet-warehouse";
     }
 

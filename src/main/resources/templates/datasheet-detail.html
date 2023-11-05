@@ -14,54 +14,79 @@
     <script th:src="@{/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<div th:insert="~{fragments/sidebar}"></div>
+<div th:insert="~{fragments/header}"></div>
 <div class="container w-50 p-3">
-    <h1 class="display-6">Datasheet Detail</h1>
-    <div id ="default">
-        <label th:text="${product.name}" name="name" id="inputPName" type="text" ></label>
-        <label th:value="${product.quantity}" th:text="${product.quantity}" name="quantity" id="total-quantity" type="text" ></label>
-        <label th:value="${product.status}" th:text="${product.status}" name="status" id="status" type="text" ></label>
+    <h1 class="display-6">รายละเอียด</h1>
+    <div id="default">
+        <div>
+            <table style="border-collapse: collapse; width: 100%; margin-top: 50px">
+                <tr>
+                    <td style="padding: 8px; text-align: left;"><strong>ชื่อ :</strong></td>
+                    <td style="padding: 8px;"><label th:text="${product.name}" name="name" id="inputPName" type="text"></label></td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; text-align: left;"><strong>จำนวน :</strong></td>
+                    <td style="padding: 8px;"><label th:value="${product.quantity}" th:text="${product.quantity}" name="quantity" id="total-quantity" type="text"></label></td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; text-align: left;"><strong>สถานะ :</strong></td>
+                    <td style="padding: 8px;"><label th:value="${product.status}" th:text="${product.status}" name="status" id="status" type="text"></label></td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; text-align: left;"><strong>ปริมาตร :</strong></td>
+                    <td style="padding: 8px;"><label th:text="${product.getVolume()}" type="text"></label></td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; text-align: left;"><strong>ความแข็ง :</strong></td>
+                    <td style="padding: 8px;"><label th:text="${product.getHardness()}" type="text"></label></td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; text-align: left;"><strong>น้ำยา :</strong></td>
+                    <td style="padding: 8px;"><label th:text="${product.getChemical().getName()}" type="text"></label></td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; text-align: left;"><strong>ปริมาณน้ำยา :</strong></td>
+                    <td style="padding: 8px;"><label th:text="${product.getChemicalVolume()}" type="text"></label></td>
+                </tr>
+            </table>
+        </div>
 
-        <table class="table table-bordered table-striped table-hover" >
-
+        <table class="table table-bordered table-striped table-hover" id="process-table" style="margin-top: 20px">
             <tr>
-                <th>วัน</th>
-                <th>จำนวน</th>
-
+                <th style="padding: 8px;">วัน</th>
+                <th style="padding: 8px;">จำนวน</th>
             </tr>
             <tr th:each="process : ${processes}">
-                <td th:text="${process.getDate()}"></td>
-                <td th:text="${process.getQuantityRecord()}"></td>
-
-
+                <td style="padding: 8px;"  th:text="${#dates.format(process.getDate(), 'dd/MM/yyyy')}"></td>
+                <td style="padding: 8px;" th:text="${process.getQuantityRecord()}"></td>
             </tr>
-
-            <tr> <td> total </td>
-                <td th:text="${sumProduced}" id="sum-produced"></td> </tr>
+            <tr>
+                <td style="padding: 8px;">จำนวนที่ผลิตได้</td>
+                <td style="padding: 8px;" th:text="${sumProduced}" id="sum-produced"></td>
+            </tr>
         </table>
     </div>
 
     <form id="form-complete" th:object="${product}" th:action="@{/datasheets/{id}/produce(id=${product.id})}" method="POST">
-
-        <button id="submit-complete-button" type="submit" class="btn btn-primary" >เริ่มผลิต</button>
+        <button id="submit-complete-button" type="submit" class="btn btn-primary"  style="margin-top: 20px">เริ่มผลิต</button>
     </form>
 
     <form id="form-completeproduct" th:object="${product}" th:action="@{/datasheets/{id}/producefinish(id=${product.id})}" method="POST">
-
-        <button id="submit-completeproduct-button" type="submit" class="btn btn-primary" > สิ้นสุดการผลิต </button>
+        <button id="submit-completeproduct-button" type="submit" class="btn btn-primary"  style="margin-top: 20px">สิ้นสุดการผลิต</button>
     </form>
 
     <form id="form-onproduct" th:object="${product}" th:action="@{/processRecords/{id}(id=${product.id})}" method="POST">
         <div class="mb-3">
-            <label for="date">Date</label>
-            <input name="date" id="date" type="text" class="form-control"  data-provide="datepicker">
-            <label for="quantity">Quantity</label>
-            <input name="quantityRecord" id="quantity" type="text" class="form-control">
+            <label for="date">วันที่</label>
+            <input name="date" id="date" type="text" class="form-control" data-provide="datepicker" required>
+            <label for="quantity">จำนวนที่ผลิตได้</label>
+            <input name="quantityRecord" id="quantity" type="text" class="form-control" min="1"  required>
         </div>
-        <button id="submit-onproduct-button" type="submit" class="btn btn-primary" >บันทึกข้อมูล</button>
+        <button id="submit-onproduct-button" type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
     </form>
 </div>
 </body>
+
 
 <script>
     // Get the status input element by ID
@@ -73,25 +98,27 @@
         const formComplete = document.getElementById("form-complete");
         const formOnProduct = document.getElementById("form-onproduct");
         const formCompleteProduct = document.getElementById("form-completeproduct");
+        const processTable = document.getElementById("process-table");
         const normal = document.getElementById("default");
 
 
+        if (status === "พร้อมผลิต") {
 
-
-
-        if (status === "COMPLETE") {
             formComplete.style.display = "block";
             formOnProduct.style.display = "none";
+            processTable.style.display = "none";
             normal.style.display = "block";
             formCompleteProduct.style.display = "none";
         }
-        else if (status === "ON_PRODUCTION" && quantity <= sumProduced ) {
+        else if (status === "ระหว่างการผลิต" &&  parseInt(sumProduced)  >= parseInt(quantity)) {
+
             formComplete.style.display = "none";
             formOnProduct.style.display = "none";
             normal.style.display = "block";
             formCompleteProduct.style.display = "block";
         }
-        else if (status === "ON_PRODUCTION") {
+        else if (status === "ระหว่างการผลิต") {
+
             formComplete.style.display = "none";
             formOnProduct.style.display = "block";
             normal.style.display = "block";

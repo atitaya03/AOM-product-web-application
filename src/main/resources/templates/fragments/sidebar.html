@@ -17,17 +17,12 @@
 </head>
 <body>
 <nav>
-    <div class="logo">
-        <i class="bx bx-menu menu-icon"></i>
-        <span class="logo-name">AOM PRODUCT</span>
-    </div>
-    <div class="sidebar">
+
+    <div class="sidebar" sec:authorize="isAuthenticated()">
         <div class="logo">
-            <i class="bx bx-menu menu-icon"></i>
             <span class="logo-name">AOM PRODUCT</span>
         </div>
-
-        <div class="sidebar-content">
+        <div class="sidebar-content" >
             <ul class="lists">
                 <li class="list">
                     <a th:href="@{/datasheets}" class="nav-link">
@@ -54,50 +49,22 @@
                     </a>
                 </li>
             </ul>
-
-            <div class="bottom-cotent">
-                <li class="list">
-                <div sec:authorize="isAuthenticated()">
-                    <a th:href="@{/logout}" class="nav-link">
-                        <i class="bx bx-log-out icon"></i>
-                        <span class="link">ออกจากระบบ</span>
-                    </a>
-                    <a href="#" class="nav-link">
-                        <i class="bx bx-cog icon"></i>
-                        <span class="link">ตั้งค่า</span>
-                    </a>
-                </div>
-                </li>
-                <li class="list">
-                <div sec:authorize="isAnonymous()">
-                    <a th:href="@{/login}" class="nav-link">
-                        <i class="bx bx-log-in icon"></i>
-                        <span class="link">เข้าสู่ระบบ</span>
-                    </a>
-                </div>
-                </li>
-
-            </div>
         </div>
     </div>
+
+
+
 </nav>
 
-<section class="overlay"></section>
+
 
 <script>
-    const navBar = document.querySelector("nav"),
-       menuBtns = document.querySelectorAll(".menu-icon"),
-       overlay = document.querySelector(".overlay");
+    const navBar = document.querySelector("nav");
 
-     menuBtns.forEach((menuBtn) => {
-       menuBtn.addEventListener("click", () => {
-         navBar.classList.toggle("open");
-       });
-     });
 
-     overlay.addEventListener("click", () => {
-       navBar.classList.remove("open");
-     });
+    navBar.classList.toggle("open");
+
+
 </script>
 </body>
 </html>
