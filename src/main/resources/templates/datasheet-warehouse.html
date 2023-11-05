@@ -20,14 +20,14 @@
 
     <table class="table table-bordered" style="margin-top: 30px;">
         <thead>
-        <tr>
+        <tr style="text-align:center; " >
             <th style="width:40%">ชื่อ</th>
-            <th style="width: 40%; text-align: center">สถานะ</th>
-            <th style="width: 40%; text-align: center">หมายเหตุ</th>
+            <th style="width: 40%">สถานะ</th>
+            <th style="width: 40%">หมายเหตุ</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="datasheet : ${datasheets}">
+        <tr style="text-align:center; " th:each="datasheet : ${datasheets}">
             <td th:text="${datasheet.getName()}"></td>
             <td style="text-align: center" class="status" th:text="${datasheet.getStatus()}"></td>
             <td> <a class="underline" th:href="@{/datasheetWarehouse/{id}(id=${datasheet.getId()})}">รายละเอียด</a></td>
