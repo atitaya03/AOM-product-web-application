@@ -22,11 +22,14 @@ public class ProcessRecordController {
 
     @Autowired
     private ProcessRecordService processRecordService;
+    @Autowired
+    private DatasheetService datasheetService;
 
 
         @PostMapping("/{id}")
         public String createProcessRecord(@PathVariable UUID id, Model model, @ModelAttribute ProcessRecordRequest request){
-             processRecordService.createProcessRecord(request);
+            datasheetService.updateStatus(id,Status.ระหว่างการผลิต);
+            processRecordService.createProcessRecord(request);
             return "redirect:/datasheets";
         }
 

@@ -17,17 +17,17 @@
 
 <div class="container w-50 p-3">
     <h1 class="display-6">เพิ่มโมลด์</h1>
-    <form action="#" th:action="@{/molds/add}" method="POST">
+    <form action="#" th:action="@{/molds/add}" method="POST" >
         <div class="mb-3">
             <label for="inputName"> ชื่อ </label>
-            <input id="inputName" type="input" class="form-control"
+            <input id="inputName" type="text" class="form-control"
                    name="name" required>
         </div>
 
         <div class="mb-3">
             <label for="inputQuantity"> จำนวน </label>
-            <input id="inputQuantity" type="input" class="form-control"
-                   name="quantity" min="0" required>
+            <input id="inputQuantity" type="number" class="form-control"
+                   name="quantity" min="1" max="1000" required>
         </div>
 
         <button id="submit-button" type="submit" class="button-13" >เพิ่ม</button>
@@ -36,7 +36,11 @@
 
 
 
+
+
 </div>
+
+
 </body>
 </html>
 

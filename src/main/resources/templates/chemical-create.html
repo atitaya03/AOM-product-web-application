@@ -25,28 +25,28 @@
         <div class="mb-3">
             <label for="inputOvenTime">เวลาในการอบ (นาที) </label>
             <input id="inputOvenTime" type="number" class="form-control"
-                   name="ovenTime" min="0" required>
+                   name="ovenTime"  min="1" max="1000" step="any"  required>
         </div>
         <div class="mb-3">
             <label for="inputSolidTime">เวลาในการเซตตัว (นาที) </label>
             <input id="inputSolidTime" type="number" class="form-control"
-                   name="solidTime" min="0" required>
+                   name="solidTime" min="1" max="1000" step="any" required>
         </div>
 
         <div class="mb-3">
-            <label for="inputVolume">ปริมาณ (นาที) </label>
+            <label for="inputVolume">ปริมาณ</label>
             <input id="inputVolume" type="number" class="form-control"
-                   name="volume" min="0" required>
+                   name="volume"  min="1" max="1000" step="any" required>
         </div>
 
         <div class="mb-3">
-            <label for="inputHardness">สัดส่วน moca </label>
-            <input id="inputMocaRatio" type="number" step="any" class="form-control" name="mocaRatio"  min="0"required>
+            <label for="inputHardness"> สัดส่วน moca </label>
+            <input id="inputMocaRatio" type="number" step="any" class="form-control" name="mocaRatio"  min="1" max="100" required>
         </div>
 
         <div class="mb-3">
             <label for="inputHardness" >ความแข็ง</label>
-            <select class="form-control" id="inputHardness" name="hardness" required>
+            <select class="form-control" id="inputHardness" name="hardness" min="1" required>
                 <option value="" hidden> เลือกความแข็ง
                 </option>
             </select>

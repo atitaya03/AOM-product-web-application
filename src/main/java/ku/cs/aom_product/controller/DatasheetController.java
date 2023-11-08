@@ -75,7 +75,7 @@ public class DatasheetController {
 
     @PostMapping("/{id}/produce")
     public String produce(@PathVariable UUID id){
-        datasheetService.updateStatus(id,Status.ระหว่างการผลิต);
+        datasheetService.updateStatus(id,Status.เริ่มผลิต);
         return "redirect:/datasheets";
     }
 
