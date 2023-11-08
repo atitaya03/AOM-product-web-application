@@ -19,7 +19,7 @@
       <label for="inputName">ชื่อ</label>
       <input disabled th:value="${chemical.name}" name="name" id="inputName" type="text" class="form-control">
       <label for="volume" style="margin-top: 10px">ปริมาณ</label>
-      <input  name="volume" id="volume" type="input" class="form-control" required>
+      <input  name="volume" id="volume" type="number" class="form-control" min="1" max="10000" required>
       <button class="button-13" id="submit-button" type="submit" style="margin-top: 20px">เพิ่มน้ำยา</button>
     </div>
   </form>
