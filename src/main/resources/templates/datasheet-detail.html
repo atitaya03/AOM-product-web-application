@@ -124,9 +124,16 @@
             normal.style.display = "block";
             formCompleteProduct.style.display = "none";
         }
+        else if (status === "ผลิตสำเร็จ") {
+            formComplete.style.display = "none";
+            formOnProduct.style.display = "none";
+            normal.style.display = "block";
+            formCompleteProduct.style.display = "none";
+        }
         else {
             formComplete.style.display = "none";
             formOnProduct.style.display = "none";
+            processTable.style.display = "none";
             normal.style.display = "block";
             formCompleteProduct.style.display = "none";
         }
